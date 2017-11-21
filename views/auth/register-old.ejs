@@ -1,0 +1,208 @@
+ <!-- 	header -->
+  <header>
+      <!-- Navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top navbar-bg-dark-green">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <!--
+                <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              -->
+              </div>
+      
+              <!-- menu header -->
+              <% include ../partials/header %>
+              <!-- /menu header -->
+        </div>
+        <!-- /.container-fluid -->
+      </nav>
+  </header>
+  <!-- 	/header -->
+    
+    <!-- logo -->
+    <% include ../partials/logo %>
+    <!-- /logo -->
+    
+    <!-- search -->
+    <% include ../partials/search %>
+    <!-- /search -->
+
+<!-- 	register -->
+<section id="register-panel">
+  <div class="container">
+
+  <div class="border-top"></div>
+
+    <!-- Return Customer  -->
+      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+          <div class="return-costomer-register">
+            <h3>Register Account</h3>
+            <h5>If you already have an account with us, please login at the <a href="/login">login page.</a></h5>
+              <!-- facebook login -->
+                <i class="fa fa-facebook"></i> 
+              <button type="button" class="btn btn-primary btn-block active btn-facebook">Login with Facebbok</button>
+                <!-- /facebook login -->
+                <h2>OR</h2>
+                <% if (errors) {%>
+                  <% errors.forEach(function (error) { %>
+                    <%= __(error) %>
+                  <% }) %>
+                <% } %>
+              <!-- 	form login -->
+              <div class="form-register">
+                <!-- <form role="form" action="/auth/local/register" method="post">
+                    <input type="text" name="username" placeholder="Username">
+                    <input type="text" name="email" placeholder="Email">
+                    <input type="password" name="password" placeholder="Password">
+                    <button type="submit">Sign up</button>
+                </form>     -->
+
+              <form role="form" action="/auth/local/register" method="post">
+
+              <div class="form-header">
+                <div class="title">Your Personal Details</div>
+                <div class="border-buttom"></div>
+              </div>
+
+              <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <label for="username"><span class="require">*</span>Username</label>
+              <input type="text" class="form-control" name="username" id="username" placeholder="username">
+              </div>
+
+             <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <label for="email">E-Mail</label>
+              <input type="email" class="form-control"  name="email" id="email" placeholder="email@gmail.com">
+              </div>
+
+             <div class="form-group col-xs-12 col-sm-12">
+              <label for="exampleInputPhone"><span class="require">*</span>YOUR PHONE NUMBER</label>
+              <input type="text" class="form-control" id="exampleInputPhone" placeholder="010888***">
+             </div>
+
+             <div class="form-header">
+                <div class="title">Your Address</div>
+                <div class="border-buttom"></div>
+              </div>
+
+              <div class="form-group col-xs-12 col-sm-12">
+              <label for="exampleInputPhone"><span class="require">*</span>Your Address</label>
+              <input type="text" class="form-control" id="exampleInputPhone" placeholder="House number, build name, room number(In case apartment)">
+             </div>
+
+
+              <div class="form-header">
+                <div class="title">Your Password</div>
+                <div class="border-buttom"></div>
+              </div>
+
+             <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <label for="password"><span class="require">*</span>Password</label>
+              <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+              </div>
+
+             <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <label for="confirm-password"><span class="require">*</span>Password Confirm</label>
+              <input type="text" class="form-control" name="confirm-password" id="confirm-password" placeholder="Password Confirm">
+              </div>
+
+
+              <div class="form-header">
+                <div class="title">Newsletter</div>
+                <div class="border-buttom"></div>
+              </div>
+
+              <div class="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <p>SUBSCRIBE TO </p>
+                <p>PENGPOS.COM FOR </p>
+                <p>DISCOUT & LATEST NEWS</p>
+              </div>
+
+              <div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-8">
+              Yes <input type="checkbox" checked="checked"> No
+              </div>
+
+
+              <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="checkbox">
+                  I have read and agree to the <a href="#">Privacy Policy</a><input type="checkbox">
+                </div>
+              </div>
+                
+              <button type="submit" class="btn btn-success btn-block btn-new-register">Continue</button>
+             
+            </form>
+              </div>
+              <!-- 	form login -->
+
+          </div>
+        
+      </div>
+      <!-- /Return Customer -->
+
+      <!-- Benifit Regitser -->
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+        <div class="benifit-sign-up">
+            <div class="point"><span class="glyphicon glyphicon-triangle-left"></span></div>
+            <h3>Benefits of Signing Up</h3>
+            <h5>mart87.com gets you best search results based on your past purchases</h5>
+              
+              <ul>
+                <li>Access all your past purchases under a single view along with dates and amounts to easily go back in time and re-order</li>
+
+                <li>Earn credit/saving points every time you shop and even pay or round off your totals using your mart87 point</li>
+
+                <li>Save frequently bought items into lists and enjoy a faster shopping experience</li>
+
+                  <li>mart87.com remembers your addresses, preferred time slots and payment methods speeding up your checkout process</li>
+
+
+              </ul>
+
+
+            </div>
+      </div>
+      <!-- /New Member -->
+  </div>
+</section>
+<!-- /register -->
+
+<!-- chat -->
+<% include ../partials/chat %>
+<!-- /chat -->
+
+<!-- Footer -->
+<footer>
+    <!-- footer top -->
+    <section id="footer_top">
+            <div class="container">
+                <div class="row">
+                
+                    <!-- contact -->
+                    <% include ../partials/contact %>
+                    <!-- /contact -->
+
+                    <!-- shared -->
+                    <% include ../partials/shared %>
+                    <!-- /shared -->
+                    
+                    <!-- how to buy -->
+                    <% include ../partials/how-to-buy %>
+                    <!-- how to buy -->
+                </div>
+            </div>
+    </section>
+    <!-- /footer top -->		
+
+  <!-- footer buttom -->
+    <section id="footer_buttom">
+        <% include ../partials/footer %>
+    </section>
+  <!-- /footer buttom -->
+</footer>
+<!-- /Footer -->
+

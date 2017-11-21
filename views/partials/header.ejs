@@ -1,0 +1,176 @@
+<!-- Navbar -->
+<nav class="navbar navbar-default navbar-fixed-top navbar-bg-dark-green" ng-controller="NavbarCtr">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle pull-left" id="btn-show-sidebar">
+        <span class="fa fa-bars" id="icon"></span>
+      </button>
+      <button type="button" class="navbar-toggle pull-left hidden" id="btn-hide-sidebar">
+        <span class="fa fa-times" id="icon"></span>
+      </button>
+    </div>
+    <ul class="nav navbar-nav navbar-right first-nav">
+      <% if (req.session.user) {%>
+        <li>
+          <div class="dropdown profile">
+            <% if(req.session.user){%>
+              <% if(req.session.user.email == 'admin@gmail.com') {%>
+                <a href="/" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <i class="fa fa-user avatar"></i> &nbsp;
+                  <%= req.session.user.email %> &nbsp;
+                    <i class="fa fa-caret-down"></i>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li>
+                        <a href="/dashboard/index">
+                          <i class="fa fa-user"></i> &nbsp; My Account</a>
+                      </li>
+                      <li role="separator" class="divider"></li>
+                      <li class="logout">
+                        <a href="/logout">
+                          <i class="fa fa-power-off" aria-hidden="true"></i> &nbsp; Logout</a>
+                      </li>
+                    </ul>
+                <% } else { %>
+                  <a href="/" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <i class="fa fa-user avatar"></i> &nbsp;
+                    <%= req.session.user.email %> &nbsp;
+                      <i class="fa fa-caret-down"></i>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li>
+                          <a href="/">
+                            <i class="fa fa-user"></i> &nbsp; My Account</a>
+                        </li>
+                        <li>
+                          <a href="/order">
+                            <i class="fa fa-history" aria-hidden="true"></i>
+                            &nbsp; Order History</a>
+                        </li>
+                        <li>
+                          <a href="/transaction">
+                            <i class="fa fa-exchange" aria-hidden="true"></i> &nbsp;Transactions</a>
+                        </li>
+                        <li>
+                          <a href="/wishlist">
+                            <i class="fa fa-heart" aria-hidden="true"></i> &nbsp; Wish Lists (0)</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li class="logout">
+                          <a href="/logout">
+                            <i class="fa fa-power-off" aria-hidden="true"></i> &nbsp; Logout</a>
+                        </li>
+                      </ul>
+                      <% } %>
+                  <% } %>
+          </div>
+        </li>
+        <% } else {%>
+          <li>
+            <a href="/login">Login</a>
+          </li>
+          <li>
+            <a href="/register">Register</a>
+          </li>
+          <% } %>
+
+            <li class="dropdown my-cart-icon" id="shop-cart">
+              <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
+              <a href="#" class="dropdown-toggle" role="button" ng-click="onToggleCartBox()">
+                <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                <span id="basket_qty" class="my-cart-badge"></span>
+                item(s) -
+                <span>$</span>
+                <span id="basket_price"></span>
+              </a>
+              <a href="" id="loading" class="loading_btn">Loading...</a>
+            </li>
+
+            <!--  empty cart -->
+            <div class="cart-empty">
+              <i class="glyphicon glyphicon-shopping-cart"></i>
+              <p>Your shopping cart is empty!</p>
+            </div>
+            <!-- / empty cart -->
+
+            <!--  have item cart -->
+            <div class="cart-item" ng-class="{'show': toggleCartBox}">
+              <div class="more-free-delivery">
+                <strong>77.50 more to get </strong>
+                <span>free delivery</span>
+              </div>
+              <!--  show-item-order -->
+              <div class="show-item-order" ng-repeat="item in cartItems">
+                <table class="table">
+                  <tbody id="list-product-add-cart">
+                    <tr>
+                      <td class="item-order-images">
+                        <img id="item_order_images" src="{{ item.name }}">
+                      </td>
+                      <td>
+                        <strong id="item_order_name"></strong>
+                      </td>
+                      <td class="item-order-quantity">{{ item.qty }}</td>
+                      <td class="item-order-total">{{ subTotal = item.qty * item.price }}</td>
+                      <td>
+                        <a href="javascript:" id="btn-remove-item-cart" class="remove-item-order">
+                          <i class="fa fa-close"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+              </div>
+              <!--  /show-item-order -->
+              <!-- grandtotal-item-order -->
+              <div class="grandtotal-item-order">
+                <table class="table">
+                  <tr>
+                    <td>Sub-Total</td>
+                    <td id="sub-total">{{ subTotal | currency : '$' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Fee</td>
+                    <td id="delivery">{{ deliveryFee | currency : '$' }}</td>
+                  </tr>
+                  <tr class="total-item-order">
+                    <td>Total</td>
+                    <td id="total-order">
+                      <strong>{{ grandTotal | currency : '$' }}</strong>
+                    </td>
+                  </tr>
+                </table>
+                <!--  Checkout -->
+                <a href="/checkout" class="btn btn-success btn-checkout">
+                  <i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp; CHECKOUT NOW</a>
+                <!--  /Checkout -->
+              </div>
+              <!-- /grandtotal-item-order -->
+            </div>
+            <!-- / have item cart -->
+    </ul>
+  </div>
+  </div>
+  </ul>
+  <!-- Mobile Navbar -->
+  <ul class="nav navbar-nav navbar-right secound-nav">
+    <li class="btn-search">
+      <a href="#">
+        <i class="fa fa-search"></i>
+      </a>
+    </li>
+    <li class="btn-user">
+      <a href="auth/login.html">
+        <i class="fa fa-user"></i>
+      </a>
+    </li>
+    <li class="dropdown" id="shop-cart">
+      <div class="point">0</div>
+      <a href="shopping-cart/" class="btn-backet" role="button">
+        <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+    </li>
+    <li class="share">
+      <a href="#">Share</a>
+    </li>
+  </ul>
+  <!-- /Mobile Navbar -->

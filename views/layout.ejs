@@ -1,0 +1,250 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    <%=typeof title == 'undefined' ? 'Mart 87' : title%>
+  </title>
+  <!-- 	Google Font -->
+  <link href='https://fonts.googleapis.com/css?family=Karla:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles/custom.css">
+  <link rel="stylesheet" href="/styles/easyzoom.css">
+  <link rel="stylesheet" href="/styles/font-awesome.min.css">
+  <link rel="stylesheet" href="/styles/importer.css">
+  <link rel="stylesheet" href="/styles/responsive-tablet.css">
+  <link rel="stylesheet" href="/styles/responsive.css">
+  <!--STYLES END-->
+</head>
+
+<body ng-app="TheApp">
+  <!-- 	header -->
+  <header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top navbar-bg-dark-green">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle pull-left" id="btn-show-sidebar">
+            <span class="fa fa-bars" id="icon"></span>
+          </button>
+          <button type="button" class="navbar-toggle pull-left hidden" id="btn-hide-sidebar">
+            <span class="fa fa-times" id="icon"></span>
+          </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <ul class="nav navbar-nav navbar-right first-nav">
+          <li>
+            <a href="/login">Login</a>
+          </li>
+          <li>
+            <a href="/register">Register</a>
+          </li>
+          <li>
+            <div class="dropdown profile">
+              <a href="/account" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <i class="fa fa-user avatar"></i> &nbsp;Hello, Samno&nbsp;
+                <i class="fa fa-caret-down"></i>
+              </a>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li>
+                  <a href="/account">
+                    <i class="fa fa-user"></i> &nbsp; My Account</a>
+                </li>
+                <li>
+                  <a href="/order">
+                    <i class="fa fa-history" aria-hidden="true"></i>
+                    &nbsp; Order History</a>
+                </li>
+                <li>
+                  <a href="/transaction">
+                    <i class="fa fa-exchange" aria-hidden="true"></i> &nbsp;Transactions</a>
+                </li>
+                <li>
+                  <a href="/wishlist">
+                    <i class="fa fa-heart" aria-hidden="true"></i> &nbsp; Wish Lists (0)</a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li class="logout">
+                  <a href="/logout">
+                    <i class="fa fa-power-off" aria-hidden="true"></i> &nbsp; Logout</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="dropdown" id="shop-cart">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+              <span id="basket_qty">0</span>
+              item(s) -
+              <span>$</span>
+              <span id="basket_price">0.00 </span>
+            </a>
+            <a href="" id="loading" class="loading_btn">Loading...</a>
+          </li>
+          <!--  empty cart -->
+          <div class="cart-empty">
+            <i class="glyphicon glyphicon-shopping-cart"></i>
+            <p>Your shopping cart is empty!</p>
+          </div>
+          <!-- / empty cart -->
+          <!--  have item cart -->
+          <div class="cart-item hidden">
+            <div class="more-free-delivery">
+              <strong>77.50 more to get </strong>
+              <span>free delivery</span>
+            </div>
+            <!--  show-item-order -->
+            <div class="show-item-order">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="item-order-images">
+                      <img id="item_order_images" src="/images/products/small/01.png">
+                    </td>
+                    <td>
+                      <strong id="item_order_name">Anchor Regular Milk 1L</strong>
+                      <br>
+                      <span id="item_order_price">$2.00</span>
+                      <span> / 1L</span>
+                    </td>
+                    <td class="item-order-quantity"> X 2</td>
+                    <td class="item-order-total">$8.00</td>
+                    <td>
+                      <a href="#" class="remove-item-order">
+                        <i class="fa fa-close"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="item-order-images">
+                      <img src="/images/products/small/02.jpg">
+                    </td>
+                    <td>
+                      <strong>Doublemint Bottle</strong>
+                      <br>
+                      <span>$1.20 / 58g</span>
+                    </td>
+                    <td class="item-order-quantity"> X 2</td>
+                    <td class="item-order-total">$2.40</td>
+                    <td>
+                      <a href="#" class="remove-item-order">
+                        <i class="fa fa-close"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--   /show-item-order -->
+            <!-- grandtotal-item-order -->
+            <div class="grandtotal-item-order">
+              <table class="table">
+                <tr>
+                  <td>Sub-Total</td>
+                  <td>$10.40</td>
+                </tr>
+                <tr>
+                  <td>Delivery Fee</td>
+                  <td>$2.00</td>
+                </tr>
+                <tr class="total-item-order">
+                  <td>Total</td>
+                  <td>
+                    <strong>$12.40</strong>
+                  </td>
+                </tr>
+              </table>
+              <!--  Checkout -->
+              <a href="/checkout" class="btn btn-success btn-checkout">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp; CHECKOUT NOW</a>
+              <!--  /Checkout -->
+            </div>
+            <!-- /grandtotal-item-order -->
+          </div>
+          <!-- / have item cart -->
+        </ul>
+        <!-- Mobile Navbar -->
+        <ul class="nav navbar-nav navbar-right secound-nav">
+          <li class="btn-search">
+            <a href="#">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+          <li class="btn-user">
+            <a href="/login">
+              <i class="fa fa-user"></i>
+            </a>
+          </li>
+          <li class="dropdown" id="shop-cart">
+            <div class="point">0</div>
+            <a href="/shopping" class="btn-backet" role="button">
+              <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+          </li>
+          <li class="share">
+            <a href="#">Share</a>
+          </li>
+        </ul>
+        <!-- /Mobile Navbar -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+  </header>
+  <!-- 	/header -->
+
+
+  <%- body %>
+
+
+
+    <!-- messenger-button -->
+    <section id="messenger">
+      <div class="container">
+        <div class="messenger-button">
+          <button class="btn btn-info">
+            <img src="/images/icon/messanger.png" alt="messanger" width="25px"> Chart with our support team :)</button>
+        </div>
+      </div>
+    </section>
+    <!-- messenger-button -->
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!--SCRIPTS-->
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/dependencies/jquery.min.js"></script>
+    <script src="/js/dependencies/angular.min.js"></script>
+    <script src="/js/dependencies/bootstrap.min.js"></script>
+    <script src="/js/dependencies/easyzoom.js"></script>
+    <script src="/js/dependencies/jquery.autocomplete.js"></script>
+    <script src="/js/dependencies/jquery.bootpag.min.js"></script>
+    <script src="/js/dependencies/jquery.easy-autocomplete.min.js"></script>
+    <script src="/js/dependencies/jquery.mycart.min.js"></script>
+    <script src="/js/dependencies/jquery.tmpl.min.js"></script>
+    <script src="/js/dependencies/moment.min.js"></script>
+    <script src="/js/dependencies/owl.carousel.min.js"></script>
+    <script src="/js/services/helper.js"></script>
+    <script src="/js/card.js"></script>
+    <script src="/js/js.js"></script>
+    <script src="/js/main.easyzoom.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/services/cart.js"></script>
+    <script src="/js/services/category.js"></script>
+    <script src="/js/services/category.slide.js"></script>
+    <script src="/js/services/checkout.js"></script>
+    <script src="/js/services/home.js"></script>
+    <script src="/js/services/search.js"></script>
+    <script src="/js/services/shopping.cart.js"></script>
+    <script src="/js/sidebar-menu.js"></script>
+    <script src="/js/video.ui.js"></script>
+    <!--SCRIPTS END-->
+</body>
+
+</html>

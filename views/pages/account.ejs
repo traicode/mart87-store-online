@@ -1,0 +1,113 @@
+  <!-- 	header -->
+  <header>
+      <!-- Navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top navbar-bg-dark-green">
+            <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+      
+              <!-- menu header -->
+              <% include ../partials/header %>
+              <!-- /menu header -->
+        </div>
+        <!-- /.container-fluid -->
+      </nav>
+  </header>
+  <!-- 	/header -->
+    
+    <!-- logo -->
+    <!-- <% include ../partials/logo %> -->
+    <!-- /logo -->
+    
+    <!-- search -->
+    <!-- <% include ../partials/search %> -->
+    <!-- /search -->
+    
+      <!-- Forget password -->
+    <section id="login-panel">
+          <div class="container">
+          <!-- <div class="border-top"></div> -->
+            <h2>My Account</h2>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="new-costomer-login">
+                  <ul class="list">
+                    <li>
+                      <a href="/account-info">
+                        <i class="fa fa-user-circle" aria-hidden="true" style="color:brown"></i>&nbsp; 
+                        Edit account information
+                    </a>
+                    </li>
+                    <li>
+                        <a href="/change-password">
+                          <i class="fa fa-key" aria-hidden="true"style="color:brown"></i>&nbsp; 
+                          Change password
+                        </a>
+                    </li>
+                  </ul>
+              </div>
+            </div>
+            <h2>My Orders</h2>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="new-costomer-login">
+                    <ul class="list">
+                        <li>
+                          <a href="/order-history">
+                            <i class="fa fa-shopping-cart" aria-hidden="true" style="color:brown"></i>&nbsp; 
+                            View order history
+                          </a>
+                        </li>
+                        <li>
+                          <a href="/payment-history">
+                            <i class="fa fa-cc-visa" aria-hidden="true" style="color:brown"></i>&nbsp; 
+                            View payment history
+                          </a>
+                        </li>
+                      </ul>
+                </div>
+            </div>
+          </div>
+      </section>
+      <!-- /Forget password -->
+    
+    <!-- chat -->
+    <% include ../partials/chat %>
+    <!-- /chat -->
+    
+    <!-- Footer -->
+    <footer>
+        <!-- footer top -->
+        <section id="footer_top">
+                <div class="container">
+                    <div class="row">
+                    
+                        <!-- contact -->
+                        <% include ../partials/contact %>
+                        <!-- /contact -->
+    
+                        <!-- shared -->
+                        <% include ../partials/shared %>
+                        <!-- /shared -->
+                        
+                        <!-- how to buy -->
+                        <% include ../partials/how-to-buy %>
+                        <!-- how to buy -->
+                    </div>
+                </div>
+        </section>
+        <!-- /footer top -->		
+    
+      <!-- footer buttom -->
+        <section id="footer_buttom">
+            <% include ../partials/footer %>
+        </section>
+      <!-- /footer buttom -->
+    </footer>
+    <!-- /Footer -->
+    

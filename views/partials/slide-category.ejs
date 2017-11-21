@@ -1,0 +1,124 @@
+ <section id="demos">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="owl-carousel owl-theme">
+            <div class="item">
+              <h4>1</h4>
+            </div>
+            <div class="item">
+              <h4>2</h4>
+            </div>
+            <div class="item">
+              <h4>3</h4>
+            </div>
+            <div class="item">
+              <h4>4</h4>
+            </div>
+            <div class="item">
+              <h4>5</h4>
+            </div>
+            <div class="item">
+              <h4>6</h4>
+            </div>
+            <div class="item">
+              <h4>7</h4>
+            </div>
+            <div class="item">
+              <h4>8</h4>
+            </div>
+            <div class="item">
+              <h4>9</h4>
+            </div>
+            <div class="item">
+              <h4>10</h4>
+            </div>
+            <div class="item">
+              <h4>11</h4>
+            </div>
+            <div class="item">
+              <h4>12</h4>
+            </div>
+          </div>
+          <script>
+            $(document).ready(function() {
+              var owl = $('.owl-carousel');
+              owl.owlCarousel({
+                margin: 10,
+                nav: true,
+                loop: true,
+                responsive: {
+                  0: {
+                    items: 1
+                  },
+                  600: {
+                    items: 3
+                  },
+                  1000: {
+                    items: 5
+                  }
+                }
+              })
+            })
+          </script>
+        </div>
+      </div>
+    </section>
+<!-- slide catagory -->
+<section id="slide-catagory">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="categoryCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+                    
+                    <div class="carousel-inner" role="listbox">
+                        <% if(list6Categories != 'defined') {%>
+                        <% for (var i = 0, cates = []; cates = list6Categories[i]; i++) { %>
+                        
+                            <div class="item <%= (i == 0 ? 'active' : '') %>">
+                                <div class="row">
+                                  
+                                    <% for (var k=0; k<cates.length; k++) { %>
+                                    
+                                        <div class="col-md-2">
+                                            <a class="thumbnail" href="/category?category=<%= categories[k].id %>">
+                                                <img src="images/category/<%= categories[k].image %>"/>
+                                                <div class="slide-catagory-title">
+                                                    <%= categories[k].name %>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        
+                                    <% } %>
+                            
+                                </div>
+                            </div>
+                            
+                        <% } %>
+                        <% } %>
+                    </div>
+    
+                    <!-- Controls -->
+                    <a class="left carousel-control carousel-control-left" href="#categoryCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+    
+                    <a class="right carousel-control carousel-control-right" href="#categoryCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+</section>
+<!-- /slide catagory -->
+
+<!-- <script id="categoryTemplate" type="text/x-jquery-tmpl">
+    <div class="item active">
+        <a href="/category/${id}">
+            <img src="images/category/${image}"/>
+            <div class="slide-catagory-title">
+                ${name}
+            </div>
+        </a>
+    </div>
+</script> -->

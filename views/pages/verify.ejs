@@ -1,0 +1,121 @@
+  <!-- 	header -->
+  <header>
+    <!-- Navbar -->
+      <nav class="navbar navbar-default navbar-fixed-top navbar-bg-dark-green">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+    
+            <!-- menu header -->
+            <% include ../partials/header %>
+            <!-- /menu header -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+</header>
+<!-- 	/header -->
+  
+  <!-- logo -->
+  <% include ../partials/logo %>
+  <!-- /logo -->
+  
+  <!-- search -->
+  <% include ../partials/search %>
+  <!-- /search -->
+  
+    <!-- Forget password -->
+	<section id="login-panel">
+        <div class="container">
+
+        <div class="border-top"></div>
+
+            <!-- Return Customer  -->
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="return-costomer-login">
+                            <h3>Verify Code</h3>
+                                <!-- 	form login -->
+                                <div class="form-login">
+                            <form>
+                              <div class="form-group">
+                                <label for="code">Your Code</label>
+                                <input type="text" class="form-control" id="code" placeholder="You code">
+                              </div>
+                              <div class="form-group">
+                                <label for="new-password">New Password</label>
+                                <input type="text" class="form-control" id="new-password" placeholder="New Password">
+                              </div>
+                              <div class="form-group">
+                                <label for="confirm-password">Confirm Password</label>
+                                <input type="text" class="form-control" id="confirm-password" placeholder="Confirm Password">
+                              </div>
+                              <button type="submit" class="btn btn-success btn-block btn-return-login">Submit</button>
+                            </form>
+                                </div>
+                                <!-- 	form login -->
+
+                        
+                        
+                                <!-- /facebook login -->
+                        </div>
+                    
+                </div>
+                <!-- /Return Customer -->
+
+                <!-- New Member -->
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="new-costomer-login">
+                            <h3></h3>
+                            <h5>Note:</h5>
+                            <p>
+                                Pleae keep remember your password that you have been changed , Thank you!
+                            </p>
+
+                            </div>
+                </div>
+                <!-- /New Member -->
+        </div>
+    </section>
+    <!-- /Forget password -->
+  
+  <!-- chat -->
+  <% include ../partials/chat %>
+  <!-- /chat -->
+  
+  <!-- Footer -->
+  <footer>
+      <!-- footer top -->
+      <section id="footer_top">
+              <div class="container">
+                  <div class="row">
+                  
+                      <!-- contact -->
+                      <% include ../partials/contact %>
+                      <!-- /contact -->
+  
+                      <!-- shared -->
+                      <% include ../partials/shared %>
+                      <!-- /shared -->
+                      
+                      <!-- how to buy -->
+                      <% include ../partials/how-to-buy %>
+                      <!-- how to buy -->
+                  </div>
+              </div>
+      </section>
+      <!-- /footer top -->		
+  
+    <!-- footer buttom -->
+      <section id="footer_buttom">
+          <% include ../partials/footer %>
+      </section>
+    <!-- /footer buttom -->
+  </footer>
+  <!-- /Footer -->
+  

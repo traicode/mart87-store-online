@@ -1,0 +1,177 @@
+var PREFIX_ADMIN = '/dashboard';
+module.exports.routes = {
+
+ 
+  /**
+   * PAGE FRONT-END
+   */
+
+  '/': {
+    view: 'index'
+  },
+  // '/': 'PagesController.index',
+
+  '/category/:id': 'PagesController.category',
+
+  '/checkout': {
+    view: 'pages/checkout'
+  },
+  '/shopping': {
+    view: 'pages/shopping'
+  },
+  '/category': {
+    view: 'pages/category'
+  },
+  '/forget-password': {
+    view: 'pages/forget-password'
+  },
+  '/verify': {
+    view: 'pages/verify'
+  },
+  '/account-info': {
+    view: 'pages/account-info'
+  },
+  '/change-password': {
+    view: 'pages/change-password'
+  },
+  '/order-history': {
+    view: 'pages/order-history'
+  },
+  '/payment-history': {
+    view: 'pages/payment-history'
+  },
+  '/order-info': {
+    view: 'pages/order-info'
+  },
+/**
+ * OTHER PAGE
+ */
+  '/frequently-asked-questions': {
+    view: 'pages/other/faq'
+  },
+  '/about': {
+    view: 'pages/other/about'
+  },
+  '/delivery': {
+    view: 'pages/other/delivery'
+  },
+  '/terms-and-conditions': {
+    view: 'pages/other/terms-conditions'
+  },
+  /**
+   * ACCOUNT
+   */
+  '/account': {
+    view: 'pages/account/account'
+  },
+  '/address': {
+    view: 'pages/account/address'
+  },
+  '/change-password': {
+    view: 'pages/account/change-password'
+  },
+  '/download': {
+    view: 'pages/account/download'
+  },
+  '/edit-account': {
+    view: 'pages/account/edit-account'
+  },
+  '/edit-address': {
+    view: 'pages/account/edit-address'
+  },
+  '/forgotten': {
+    view: 'pages/account/forgotten'
+  },
+  '/new-address': {
+    view: 'pages/account/new-address'
+  },
+  '/newsletter': {
+    view: 'pages/account/newsletter'
+  },
+  '/order': {
+    view: 'pages/account/order'
+  },
+  '/recurring': {
+    view: 'pages/account/recurring'
+  },
+  '/return': {
+    view: 'pages/account/return'
+  },
+  '/reward': {
+    view: 'pages/account/reward'
+  },
+  '/transaction': {
+    view: 'pages/account/transaction'
+  },
+  '/wishlist': {
+    view: 'pages/account/wishlist'
+  },
+   /**
+   * AUTH USER
+   */
+  'get /login': 'AuthController.loginView',
+  'post /login': 'AuthController.login',
+  'get /register': 'AuthController.registerView',
+  'post /register': 'AuthController.register',
+  '/logout': 'AuthController.logout',
+
+  /**
+   * DASHBOARD ADMIN
+   */
+  ['GET ' + PREFIX_ADMIN + '/index']: 'dashboard/AdminController.index',
+  //CATEGORY
+  ['GET ' + PREFIX_ADMIN + '/category']: 'dashboard/CategoryController.index',
+  ['GET ' + PREFIX_ADMIN + '/category/new']: 'dashboard/CategoryController.new',
+  ['GET ' + PREFIX_ADMIN + '/category/edit/:id']: 'dashboard/CategoryController.edit',
+  ['POST ' + PREFIX_ADMIN + '/category']: 'dashboard/CategoryController.create',
+  ['POST ' + PREFIX_ADMIN + '/category/update/:id']: 'dashboard/CategoryController.update',
+  ['POST ' + PREFIX_ADMIN + '/category/delete/:id']: 'dashboard/CategoryController.delete',
+  //PRODUCT
+  ['GET ' + PREFIX_ADMIN + '/product']: 'dashboard/ProductController.index',
+  ['GET ' + PREFIX_ADMIN + '/product/new']: 'dashboard/ProductController.new',
+  ['GET ' + PREFIX_ADMIN + '/product/edit/:id']: 'dashboard/ProductController.edit',
+  ['POST ' + PREFIX_ADMIN + '/product']: 'dashboard/ProductController.create',
+  ['POST ' + PREFIX_ADMIN + '/product/update/:id']: 'dashboard/ProductController.update',
+  ['POST ' + PREFIX_ADMIN + '/product/delete/:id']: 'dashboard/ProductController.delete',
+  //PARTNER
+  ['GET ' + PREFIX_ADMIN + '/partner']: 'dashboard/PartnerController.index',
+  ['GET ' + PREFIX_ADMIN + '/partner/new']: 'dashboard/PartnerController.new',
+  ['GET ' + PREFIX_ADMIN + '/partner/edit/:id']: 'dashboard/PartnerController.edit',
+  ['POST ' + PREFIX_ADMIN + '/partner']: 'dashboard/PartnerController.create',
+  ['POST ' + PREFIX_ADMIN + '/partner/update/:id']: 'dashboard/PartnerController.update',
+  ['POST ' + PREFIX_ADMIN + '/partner/delete/:id']: 'dashboard/PartnerController.delete',
+  //SLIDE
+  ['GET ' + PREFIX_ADMIN + '/slide']: 'dashboard/SlideController.index',
+  ['GET ' + PREFIX_ADMIN + '/slide/new']: 'dashboard/SlideController.new',
+  ['GET ' + PREFIX_ADMIN + '/slide/edit/:id']: 'dashboard/SlideController.edit',
+  ['POST ' + PREFIX_ADMIN + '/slide']: 'dashboard/SlideController.create',
+  ['POST ' + PREFIX_ADMIN + '/slide/update/:id']: 'dashboard/SlideController.update',
+  ['POST ' + PREFIX_ADMIN + '/slide/delete/:id']: 'dashboard/SlideController.delete',
+  //USER
+  ['GET ' + PREFIX_ADMIN + '/user']: 'dashboard/UserController.index',
+  ['GET ' + PREFIX_ADMIN + '/user/new']: 'dashboard/UserController.new',
+  ['GET ' + PREFIX_ADMIN + '/user/edit/:id']: 'dashboard/UserController.edit',
+  ['POST ' + PREFIX_ADMIN + '/user']: 'dashboard/UserController.create',
+  ['POST ' + PREFIX_ADMIN + '/user/update/:id']: 'dashboard/UserController.update',
+  ['POST ' + PREFIX_ADMIN + '/user/delete/:id']: 'dashboard/UserController.delete',
+  //ORDER
+  ['GET ' + PREFIX_ADMIN + '/order']: 'dashboard/OrderController.index',
+  ['GET ' + PREFIX_ADMIN + '/order/new']: 'dashboard/OrderController.new',
+  ['GET ' + PREFIX_ADMIN + '/edit/:id']: 'dashboard/OrderController.edit',
+  ['POST ' + PREFIX_ADMIN + '/order']: 'dashboard/OrderController.create',
+  ['POST ' + PREFIX_ADMIN + '/order/update/:id']: 'dashboard/OrderController.update',
+  ['POST ' + PREFIX_ADMIN + '/order/delete/:id']: 'dashboard/OrderController.delete',
+
+  //API
+  'GET /api/slides': 'ApiController.slides',
+  'GET /api/categories': 'ApiController.categories',
+  'GET /api/partners': 'ApiController.getPartners',
+  'GET /api/products/category/:id': 'ApiController.getProductsByCategoryId',
+  'GET /api/products/new': 'ApiController.getNewProducts',
+  'GET /api/products/recommend': 'ApiController.getRecommendProducts',
+  'GET /api/products/popular': 'ApiController.getPopularProducts',
+  'GET /api/product/name': 'ApiController.getProductName',
+  'GET /api/category/name': 'ApiController.getCategoryName',
+  'GET /api/products': 'ApiController.products',
+  'GET /api/products/top':'ApiController.getTopProducts',
+};

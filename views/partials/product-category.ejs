@@ -1,0 +1,27 @@
+<!-- New Product -->
+<section id="new-product" ng-controller="ProductByCategoryCtr">
+    <div class="container-fluid">
+        <!-- Title -->
+        <center>
+            <div class="new-product-title"></div>
+            <div class="title">{{ title }}</div>
+        </center>
+        <!--/ Title -->
+        <!-- Item content -->
+        <div class="item-content">
+             <!-- end row -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12" id="newProductList">
+                    
+                    <div ng-repeat="product in products track by $index" class="col-sm-3 col-md-3 col-lg-3">
+                        <% include ../partials/templates/product-card %>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- /end row -->
+        </div>
+        <!--/ Item content -->
+    </div>
+</section>
+<!-- /	New Product -->

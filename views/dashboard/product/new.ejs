@@ -1,0 +1,122 @@
+<!-- header -->
+<% include ../partials/header %>
+<!-- end header -->
+                <!-- /.navbar-top-links -->
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <!-- menu -->
+                        <% include ../partials/menu %>
+                        <!-- end header -->
+                    </div>
+                </div>
+            </nav>
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4 class="page-header">Product</h4>
+                    </div>
+                </div>
+                <!-- CONTENT -->
+                <!-- /.row -->
+                <div class="row">
+                  <div class="col-lg-12">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                                Add Product
+                          </div>
+                          <!-- /.panel-heading -->
+                          <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form class="form" role="form" action="/dashboard/product" method="post" enctype="multipart/form-data">
+                                              <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group required">
+                                                        <label class="control-label">Product Name(En)</label>:
+                                                        <input class="form-control" name="name" placeholder="Enter product name">
+                                                    </div>
+                                                </div>  
+                                                 <div class="col-md-4">
+                                                    <div class="form-group required">
+                                                        <label class="control-label">Product Name(Kh)</label>:
+                                                        <input class="form-control" name="name" placeholder="Enter product name">
+                                                    </div>
+                                                </div>  
+                                                <div class="col-md-4">
+        											<div class="form-group required">
+        													<label class="control-label">Choose Category</label>:
+        													<select class="form-control" name="categoryId">
+                                                                <% categories.forEach(function(category){ %>
+                                                                    <option value="<%= category.id %>"><%= category.name %></option>
+                                                                <% }) %>
+        													</select>
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group required">
+                                                        <label class="control-label">Available</label>:
+                                                        <label class="radio-inline"><input type="radio" name="stock" value="In Stock">In Stock</label>
+                                                        <label class="radio-inline"><input type="radio" name="stock" value="Out Stock">Out Stock</label>
+                                                    </div>
+                                                </div> 
+                                                <div class="col-md-4">
+                                                    <div class="form-group required">
+                                                        <label class="control-label">Price</label>:
+                                                        <input class="form-control" name="price" placeholder="Enter price">
+                                                        <!-- <p class="help-block">Example block-level help text here.</p> -->
+                                                    </div>
+                                                </div> 
+                                                <div class="col-md-4">
+                                                    <div class="form-group required">
+        													<label class="control-label">Type</label>:
+        													<select class="form-control" name="type">
+                                                                <option value="case">Case</option>
+                                                                <option value="kg">Kg</option>
+        													</select>
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                            
+											<div class="form-group">
+                                                <label>Description:</label>
+                                                <textarea class="form-control" name="description" rows="3"></textarea>
+											</div>
+                                            <div class="form-group">
+                                                <label>Image:</label>
+                                                <ul class="list-inline">
+                                                    <li><input type="file" name="files"></li>
+                                                    <li><input type="file" name="files"></li>
+                                                    <li><input type="file" name="files"></li>
+                                                    <li><input type="file" name="files"></li>
+                                                    <li><input type="file" name="files"></li>
+                                                </ul>
+                                                
+											</div>
+											<div class="col-md-offset-5 col-md-5">
+                                                <input type="submit" value="Submit" class="btn btn-success">
+												<!-- <button type="submit" class="btn btn-success">Save</button> -->
+												<button type="reset" class="btn btn-primary">Reset</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- /.col-lg-6 (nested) -->
+                                </div>
+                                <!-- /.row (nested) -->
+                            </div>
+                          <!-- /.panel-body -->
+                      </div>
+                      <a href="<%=sails.getBaseUrl()%>/dashboard/product"><button type="button" class="btn btn-info">Back</button></a>  
+                      <br>
+                      <br>
+                      <!-- /.panel -->
+                  </div>
+                  <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <!-- END CONTENT -->
+            </div>   
+<!-- header -->
+<% include ../partials/footer %>
+<!-- end header -->

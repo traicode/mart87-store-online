@@ -1,0 +1,131 @@
+#search-admin{
+    width: 200px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 10px 10px 10px 10px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+#start-date,#end-date{
+    width: 200px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 2px 10px 2px 10px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+.banner-image {
+    background-image: linear-gradient(rgba(20, 20, 20, 0.5), rgba(20, 20, 20, 0.5)), url(https://s3-ap-southeast-1.amazonaws.com/pengpos.image//var/www/html/opencart/image/image-background.jpg);
+    background-position: top center;
+    background-repeat: no-repeat;
+    padding: 150px 0px;
+    background-attachment: fixed;
+    -webkit-filter: contrast(79%) brightness(90%) saturate(128%) sepia(0%) hue-rotate(350deg);
+    filter: contrast(79%) brightness(90%) saturate(128%) sepia(0%) hue-rotate(350deg);
+    opacity: 0.9;
+}
+
+.trayer-margin-top {
+    margin-top: 50px;
+}
+p {
+    line-height: 1.8em;
+}
+p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+p {
+    margin: 0 0 10px;
+}
+.banner-image .page-title {
+    color: #ffffff;
+    font-size: 5em;
+    line-height: 1em;
+    font-weight: 700;
+    text-transform: capitalize;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    opacity: 1;
+}
+.page-title {
+    font-family: 'Source Sans Pro', sans-serif !important;
+}
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+#footer-wrapper h5 {
+    color: #535461 !important;
+}
+#footer-wrapper h5 {
+    font-family: 'Source Sans Pro', sans-serif !important;
+    font-size: 15px !important;
+}
+.footer-section-title {
+    font-weight: 600;
+    font-size: 15px;
+    font-size: 1rem;
+}
+footer h5 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+}
+#footer-wrapper {
+    background-color: transparent !important;
+    border-top: 0px solid #DDD !important;
+}
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+ol, ul {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+#footer-wrapper li {
+    line-height: 1.7;
+}
+.made-by-love-quote {
+    color: #535461;
+    font-size: 13.5px !important;
+    padding: 30px 0px 10px;
+    font-family: 'Karla', sans-serif !important;
+}
+h4.page-header,h1.page-header {
+    margin-top: 100px;
+    background-color: #e8e3e3;
+    padding: 10px;
+    border-radius: 2px;
+    color: black;
+}
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
+
+
+.thumbnail a > img {
+    margin-right: auto;
+    margin-left: auto;
+    height: 200px;
+}
+
+
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: -0.5;
+}
