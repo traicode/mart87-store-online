@@ -22,18 +22,6 @@ module.exports.routes = {
   '/category': {
     view: 'pages/category'
   },
-  '/verify': {
-    view: 'pages/verify'
-  },
-  '/order-history': {
-    view: 'pages/order-history'
-  },
-  '/payment-history': {
-    view: 'pages/payment-history'
-  },
-  '/order-info': {
-    view: 'pages/order-info'
-  },
 /**
  * OTHER PAGE
  */
