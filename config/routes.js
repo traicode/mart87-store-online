@@ -22,17 +22,8 @@ module.exports.routes = {
   '/category': {
     view: 'pages/category'
   },
-  '/forget-password': {
-    view: 'pages/forget-password'
-  },
   '/verify': {
     view: 'pages/verify'
-  },
-  '/account-info': {
-    view: 'pages/account-info'
-  },
-  '/change-password': {
-    view: 'pages/change-password'
   },
   '/order-history': {
     view: 'pages/order-history'
