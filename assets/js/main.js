@@ -1,18 +1,3 @@
-$(document).ready(function() {
-    var d = moment(new Date()).format("YYYY-MM-DD");
-    $("#start-date").val(d);
-    $("#end-date").val(d);
-
-    function init() {
-        //Search data
-        // var d = moment(new Date()).format("YYYY-MM-DD");
-        // $("#start-date").val(d);
-        // $("#end-date").val(d);
-    }
-
-    init();
-});
-
 // Can we seperate to a file app.module.js
 var app = angular.module("TheApp", []);
 
@@ -27,7 +12,6 @@ app.service('ApiService', function($http, API_END_POINT) {
             return res.data;
         });
     };
-
 
     this.getCategory = function(page, limit) {
         var url = API_END_POINT + '/api/categories?page=' + (page || 1) + '&limit=' + (limit || 10);
