@@ -6,10 +6,10 @@ module.exports.routes = {
    * PAGE FRONT-END
    */
 
-  '/': {
-    view: 'index'
-  },
-  // '/': 'PagesController.index',
+  // '/': {
+  //   view: 'index'
+  // },
+  '/': 'PagesController.index',
 
   '/category/:id': 'PagesController.category',
 

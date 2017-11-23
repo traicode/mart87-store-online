@@ -40,11 +40,12 @@ module.exports = {
             }
             req.logIn(user, function(err) {
                 if (err) res.send(err);
+                var fields = ['email','name','firstName','lastName','address','phones'];
+                User.findOne({id:user.id,select: fields}).exec(function(err,data){
+                      req.session.user = data;
+                      res.redirect(redirectAfterHome);
+                });
                 
-                req.session.user = user;
-                
-
-                res.redirect(redirectAfterHome);
 
                 // return res.send({
                 //     message: info.message,
@@ -68,8 +69,8 @@ module.exports = {
     },
 
     logout: function(req, res) {
-        req.logout();
         req.session.user = null;
+        req.logout();
         res.redirect(redirectAfterToLogin);
     }
 };

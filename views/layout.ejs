@@ -25,7 +25,7 @@
   <!-- 	header -->
   <header>
     <!-- Navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top navbar-bg-dark-green">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-bg-dark-green" ng-controller="NavbarCtr">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -38,16 +38,11 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <ul class="nav navbar-nav navbar-right first-nav">
-          <li>
-            <a href="/login">Login</a>
-          </li>
-          <li>
-            <a href="/register">Register</a>
-          </li>
+          <% if(req.session.user) {%>
           <li>
             <div class="dropdown profile">
               <a href="/account" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <i class="fa fa-user avatar"></i> &nbsp;Hello, Samno&nbsp;
+                <i class="fa fa-user avatar"></i> &nbsp;Hello, <%= req.session.user.firstName %>&nbsp;
                 <i class="fa fa-caret-down"></i>
               </a>
 
@@ -77,13 +72,22 @@
               </ul>
             </div>
           </li>
+          <% } else { %>
+             <li>
+              <a href="/login">Login</a>
+            </li>
+            <li>
+              <a href="/register">Register</a>
+            </li>
+          <% } %>
+         
           <li class="dropdown" id="shop-cart">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
+            <a href="#" class="dropdown-toggle" role="button" ng-click="onToggleCartBox()">
               <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-              <span id="basket_qty">0</span>
+              <span id="basket_qty">{{ productSelectedItem }}</span>
               item(s) -
-              <span>$</span>
-              <span id="basket_price">0.00 </span>
+              <span id="basket_price">{{ subTotal | currency : '$' }}</span>
             </a>
             <a href="" id="loading" class="loading_btn">Loading...</a>
           </li>
@@ -94,77 +98,57 @@
           </div>
           <!-- / empty cart -->
           <!--  have item cart -->
-          <div class="cart-item hidden">
+          <div class="cart-item" ng-class="{'show': toggleCartBox}">
             <div class="more-free-delivery">
               <strong>77.50 more to get </strong>
               <span>free delivery</span>
             </div>
             <!--  show-item-order -->
-            <div class="show-item-order">
+            <div class="show-item-order" ng-repeat="item in cartItems">
               <table class="table">
-                <tbody>
-                  <tr>
-                    <td class="item-order-images">
-                      <img id="item_order_images" src="/images/products/small/01.png">
-                    </td>
-                    <td>
-                      <strong id="item_order_name">Anchor Regular Milk 1L</strong>
-                      <br>
-                      <span id="item_order_price">$2.00</span>
-                      <span> / 1L</span>
-                    </td>
-                    <td class="item-order-quantity"> X 2</td>
-                    <td class="item-order-total">$8.00</td>
-                    <td>
-                      <a href="#" class="remove-item-order">
-                        <i class="fa fa-close"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="item-order-images">
-                      <img src="/images/products/small/02.jpg">
-                    </td>
-                    <td>
-                      <strong>Doublemint Bottle</strong>
-                      <br>
-                      <span>$1.20 / 58g</span>
-                    </td>
-                    <td class="item-order-quantity"> X 2</td>
-                    <td class="item-order-total">$2.40</td>
-                    <td>
-                      <a href="#" class="remove-item-order">
-                        <i class="fa fa-close"></i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                  <tbody id="list-product-add-cart">
+                    <tr>
+                      <td class="item-order-images">
+                        <img id="item_order_images" src="{{ parseImage(item.images[0]) }}">
+                      </td>
+                      <td>
+                        <strong id="item_order_name">{{ item.name }}</strong>
+                      </td>
+                      <td class="item-order-quantity">{{ item.qty }}</td>
+                      <td class="item-order-total">{{ subTotal = item.qty * item.price }}</td>
+                      <td>
+                        <a href="javascript:" id="btn-remove-item-cart" class="remove-item-order">
+                          <i class="fa fa-close"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
             </div>
             <!--   /show-item-order -->
             <!-- grandtotal-item-order -->
             <div class="grandtotal-item-order">
-              <table class="table">
-                <tr>
-                  <td>Sub-Total</td>
-                  <td>$10.40</td>
-                </tr>
-                <tr>
-                  <td>Delivery Fee</td>
-                  <td>$2.00</td>
-                </tr>
-                <tr class="total-item-order">
-                  <td>Total</td>
-                  <td>
-                    <strong>$12.40</strong>
-                  </td>
-                </tr>
-              </table>
-              <!--  Checkout -->
-              <a href="/checkout" class="btn btn-success btn-checkout">
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp; CHECKOUT NOW</a>
-              <!--  /Checkout -->
-            </div>
+                <table class="table">
+                  <tr>
+                    <td>Sub-Total</td>
+                    <td id="sub-total">{{ subTotal | currency : '$' }}</td>
+                  </tr>
+                  <tr>
+                    <td>Delivery Fee</td>
+                    <td id="delivery">{{ deliveryFee | currency : '$' }}</td>
+                  </tr>
+                  <tr class="total-item-order">
+                    <td>Total</td>
+                    <td id="total-order">
+                      <strong>{{ grandTotal | currency : '$' }}</strong>
+                    </td>
+                  </tr>
+                </table>
+                <!--  Checkout -->
+                <a href="/checkout" class="btn btn-success btn-checkout">
+                  <i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp; CHECKOUT NOW</a>
+                <!--  /Checkout -->
+              </div>
             <!-- /grandtotal-item-order -->
           </div>
           <!-- / have item cart -->

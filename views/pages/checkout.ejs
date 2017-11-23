@@ -147,7 +147,7 @@
 
     <!-- Confirm Order -->
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" ng-controller="CheckoutCtr">
       <div class="panel-heading" role="tab" id="headingFour">
         <h4 class="panel-title">
           <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true"
@@ -168,31 +168,17 @@
                 <table class="table">
 
                   <tbody>
-                    <tr>
+                    <tr ng-repeat="item in cartItems">
                       <td width="5%">
-                        <img src="../assets/images/products/small/01.png" alt="">
+                        <img src="{{ parseImage(item.images[0]) }} alt="">
                       </td>
                       <td>
-                        <span class="pro_name">Coca Cola Zero 24*330ml</span>
-                        <span class="pro_price">$10.00 / 1 case</span>
+                        <span class="pro_name">{{ item.name }}</span>
+                        <span class="pro_price">{{ item.price | currency : '$' }} / {{ selectedProduct.type }}</span>
                       </td>
-                      <td> 2 </td>
+                      <td class="qty-item-order-checkout">{{item.qty}}</td>
                       <td align="right">
-                        <span class="sub_total">$20.00</span>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td width="5%">
-                        <img src="../assets/images/products/small/02.jpg" alt="">
-                      </td>
-                      <td>
-                        <span class="pro_name">Coca Cola Zero 24*330ml</span>
-                        <span class="pro_price">$5.00 / 1 case</span>
-                      </td>
-                      <td>4 </td>
-                      <td align="right">
-                        <span class="sub_total">$20.00</span>
+                        <span class="sub_total">{{ item.price | currency : '$' }}</span>
                       </td>
                     </tr>
                   </tbody>
@@ -205,15 +191,15 @@
                   <tbody>
                     <tr>
                       <td>Sub-Total:</td>
-                      <td align="right" class="price">$7.00</td>
+                      <td align="right" class="price">{{ subTotal | currency : '$' }}</td>
                     </tr>
                     <tr>
                       <td>Delivery Fee:</td>
-                      <td align="right" class="price">$2.00</td>
+                      <td align="right" class="price">{{ deliveryFee | currency : '$' }}</td>
                     </tr>
                     <tr>
                       <td class="border">Total:</td>
-                      <td class="border price" align="right">$9.00</td>
+                      <td class="border price" align="right">{{ grandTotal | currency : '$' }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -225,7 +211,7 @@
       </div>
     </div>
     <!-- Confirm Order -->
-    <!-- 	/Checkout -->
+    <!-- /Checkout -->
   </div>
 </section>
 <!-- Footer -->

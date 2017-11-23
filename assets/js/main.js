@@ -96,6 +96,8 @@ app.service('Storage', function() {
 // Parent Controller for Pager load data with increase and decrease qty for product cart
 app.controller('PagerCtr', function($scope, ApiService, Storage) {
     $scope.products = [];
+    $scope.selectedProduct = {};
+    $scope.showProductModal = false;
   
     $scope.loadData = function(page, limit) {
         ApiService.getProduct().then(function(res) {
@@ -129,6 +131,18 @@ app.controller('PagerCtr', function($scope, ApiService, Storage) {
         Storage.addItemToCart(item);
         $scope.filterQty($scope.products);
         console.log("All items in cart: ", Storage.totalQty());
+        
+        console.log("Select Product ",  item);
+    };
+    
+    $scope.onImageClick = function(item) {
+        $scope.selectedProduct = item;
+        $scope.showProductModal = true;
+        console.log("Item Click ",  $scope.selectedProduct);
+    };
+    
+    $scope.parseImage = function (image) {
+        return "http://all-nodes-ravuthz2.c9users.io:8080/images/product/" + image;
     };
 
 });
@@ -209,6 +223,8 @@ app.controller('NavbarCtr', function($scope, $controller, Storage) {
     $scope.grandTotal = 0;
     $scope.deliveryFee = 0;
     
+    $scope.productSelectedItem = 0;
+    
     $scope.init = function() {
         var products = Storage.getProduct();
         console.log("Product ",  products);
@@ -217,6 +233,9 @@ app.controller('NavbarCtr', function($scope, $controller, Storage) {
          var price = Storage.totalPrice();
           $scope.subTotal = price;
           $scope.grandTotal = ($scope.subTotal + $scope.deliveryFee); 
+          
+          
+          $scope.productSelectedItem = Storage.totalQty();
     };
     
     $scope.onToggleCartBox = function() {
@@ -230,15 +249,19 @@ app.controller('NavbarCtr', function($scope, $controller, Storage) {
 app.controller('CheckoutCtr', function($scope, $controller, Storage) {
     $scope.cartItems = [];
     
-    // $scope.price =  [{ subTotal : 0 }, { deliveryFee: 0 }, { total: 0 }];
+    $scope.subTotal = 0;
+    $scope.grandTotal = 0;
+    $scope.deliveryFee = 0;
+    
     $scope.price = 0;
     $scope.init = function() {
         var products = Storage.getProduct();
         console.log("Product ",  products);
          $scope.cartItems  = products;
          
-        var price = Storage.totalPrice();
-        $scope.price = price;
+         var price = Storage.totalPrice();
+          $scope.subTotal = price;
+          $scope.grandTotal = ($scope.subTotal + $scope.deliveryFee); 
     };
     
     $scope.init();

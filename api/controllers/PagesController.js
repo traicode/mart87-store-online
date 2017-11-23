@@ -20,7 +20,7 @@ module.exports = {
                     list6Categories.push(categories.slice(i, i + chunk));
                 }
 
-                return res.view({
+                return res.view('index',{
                     sliders: sliders,
                     categories: categories,
                     list6Categories: list6Categories
