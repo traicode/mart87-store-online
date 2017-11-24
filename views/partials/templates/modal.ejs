@@ -118,13 +118,13 @@
                                                         <center>
                                                             <div class="input-group">
                                                                 <span class="input-group-btn">
-                                                                    <button class="btn btn-link btn-xs" type="button" id="btn_detail_minus_qty">
+                                                                    <button class="btn btn-link btn-xs" type="button" id="btn_detail_minus_qty" ng-click="decreaseQty(selectedProduct)">
                                                                         <i class="fa fa-caret-down" aria-hidden="true"></i>
                                                                     </button>
                                                                 </span>
-                                                                <input type="text" class="form-control" value="1" id="pro_detail_input_qty">
+                                                                <input type="text" class="form-control" id="pro_detail_input_qty" name="selectedProduct.qty" ng-model="selectedProduct.qty">
                                                                 <span class="input-group-btn">
-                                                                    <button class="btn btn-xs btn-link" type="button" id="btn_detail_plus_qty">
+                                                                    <button class="btn btn-xs btn-link" type="button" id="btn_detail_plus_qty" ng-click="increaseQty(selectedProduct)">
                                                                         <i class="fa fa-caret-up" aria-hidden="true"></i>
                                                                     </button>
                                                                 </span>

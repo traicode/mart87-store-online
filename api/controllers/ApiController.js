@@ -45,7 +45,7 @@ module.exports = {
         var perPage = req.query.limit;
         var currentPage = req.query.page;
         var conditions = {};
-        pager.paginate(Category, conditions, currentPage, perPage, [{name: 'parent'}], 'createdAt DESC', function(err, records){
+        pager.paginate(Category, conditions, currentPage, perPage, [{name: 'children'}], 'createdAt DESC', function(err, records){
             if(err){
                 console.log(err);
             }

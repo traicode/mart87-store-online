@@ -5,6 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var pager = require('sails-pager');
+var path = require('path').resolve(sails.config.appPath, 'assets/images/category');
+var redirect = "/dashboard/category";
 module.exports = {
 
     params: function(req) {
@@ -39,7 +41,7 @@ module.exports = {
     },
 
     'new': function(req, res){
-        Category.find({}).exec(function(err, categories){
+        Category.find({parent:null}).exec(function(err, categories){
             if(err){
                 res.send(500, {error: 'Database Error'});
             }
@@ -49,10 +51,7 @@ module.exports = {
 
     create:function(req, res){
         var uploadFile = req.file('fileUpload');
-        uploadFile.upload({ dirname: '../../assets/images/category' }, function onUploadComplete(err, files) {
-            // Earlier it was ./assets/images .. Changed to ../../assets/images
-            //	Files will be uploaded to ./assets/images
-            // Access it via localhost:1337/images/file-name
+        uploadFile.upload({ dirname: path }, function onUploadComplete(err, files) {
             if (err) return res.serverError(err);
             //	IF ERROR Return and send 500 error
             
@@ -60,18 +59,26 @@ module.exports = {
             var lastPart = imageFile.split("/").pop();
             var name = req.body.name;
             var description = req.body.description;
+            var cateParent = null;
+            
             var parentId = req.body.parentId;
-            var category = {
-                name: name,
-                parent:parentId,
-                description:description,
-                image:lastPart
-            }
-            Category.create(category).exec(function(err){
-                if(err){
-                    res.send(500, {error: 'Database Error'});
+            Category.findOne({id:parentId}).exec(function(err,categoryParent){
+                 if (err) return res.serverError(err);
+                 cateParent = categoryParent;
+                 
+                var category = {
+                    name: name,
+                    parent:categoryParent,
+                    description:description,
+                    image:lastPart,
                 }
-                res.redirect('/dashboard/category');
+                Category.create(category).exec(function(err){
+                    if(err){
+                        res.send(500, {error: 'Database Error'});
+                    }
+                    console.log("Category Insert Item :",  category);
+                    res.redirect(redirect);
+                });
             });
         });
     },
@@ -82,9 +89,8 @@ module.exports = {
             if(err){
                 res.send(500, {error: 'Database Error'});
             }
-            res.redirect('/dashboard/category');
+            res.redirect(redirect);
         });
-        return false;
     },
 
     edit: function(req, res) {
@@ -102,18 +108,34 @@ module.exports = {
         });
     },
     update: function(req, res){
-        var name = req.body.name;
-        var description = req.body.description;
-        var parentId = req.body.parentId;
-
-        Category.update({id: req.params.id},{name:name,description:description,parentId:parentId}).exec(function(err){
-            if(err){
-                res.send(500, {error: 'Database Error'});
-            }
-            res.redirect('/dashboard/category');
+        var uploadFile = req.file('fileUpload');
+        uploadFile.upload({ dirname: path }, function onUploadComplete(err, files) {
+            if (err) return res.serverError(err);
+            //	IF ERROR Return and send 500 error
+            
+            var imageFile  = files[0].fd;
+            var lastPart = imageFile.split("/").pop();
+            var name = req.body.name;
+            var description = req.body.description;
+            
+            var parentId = req.body.parentId;
+            Category.findOne({id:parentId}).exec(function(err,category){
+                 if (err) return res.serverError(err);
+                var category = {
+                    name: name,
+                    parent:category,
+                    description:description,
+                    image:lastPart
+                }
+                Category.update({id: req.params.id},category).exec(function(err){
+                    if(err){
+                        res.send(500, {error: 'Database Error'});
+                    }
+                    console.log("Category update Item :",  category);
+                    res.redirect(redirect);
+                });
+            });
         });
-
-        return false;
     }
 };
 

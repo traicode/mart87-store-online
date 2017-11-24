@@ -27,21 +27,6 @@ module.exports = {
             res.view(records);
         });
 
-
-        // var page = req.params.page || 1;
-        // var limit = 10;
-        // var offset = (page - 1) * limit;
-        // var count = 0;
-        // Product.find({}).paginate({ page: page, limit: offset }).exec(function (err, products) {
-        //     if (err) {
-        //         res.send(500, { error: 'Database Error' });
-        //     }
-        //     if(products.length > 0){
-        //         count = products.length;
-        //     }
-        //     var totalPages = Math.ceil(products.length / limit);
-        //     res.view({ products: products, totalItems: count, totalPages: totalPages });
-        // });
     },
 
     'new': function (req, res) {
