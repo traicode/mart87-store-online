@@ -1,7 +1,8 @@
 // Can we seperate to a file app.module.js
 var app = angular.module("TheApp", []);
 
-app.constant('API_END_POINT', 'http://all-nodes-ravuthz2.c9users.io:8080');
+//app.constant('API_END_POINT', 'http://all-nodes-ravuthz2.c9users.io:8080');
+app.constant('API_END_POINT', 'https://mart87.herokuapp.com');
 
 // This also can seperate to a file app.service.js
 app.service('ApiService', function($http, API_END_POINT) {
