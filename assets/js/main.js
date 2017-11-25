@@ -257,7 +257,7 @@ app.controller('CheckoutCtr', function($scope, $controller, Storage) {
     $scope.price = 0;
     $scope.init = function() {
         var products = Storage.getProduct();
-        console.log("Product ",  products);
+        console.log("Product CheckoutCtr ",  products);
          $scope.cartItems  = products;
          
          var price = Storage.totalPrice();

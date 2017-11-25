@@ -4,17 +4,22 @@
  * @description :: Server-side logic for managing slides
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-
+var pager = require('sails-pager');
+var path = require('path').resolve(sails.config.appPath, 'assets/images/slide');
+var redirect = "/dashboard/slide";
+var redirectAuthUser = "/login";
 module.exports = {
 	index:function(req, res){
-        var page = req.params.page;
-        var limit = 10;
-        var offset = (page - 1) *  limit;
-        Slide.find({}).paginate({page: page, limit: offset}).exec(function(err, slides){
+	 
+	    var perPage = req.query.limit || 6;
+        var currentPage = req.query.page;
+        var conditions = {};
+        pager.paginate(Slide, conditions, currentPage, perPage, [{name:'user'}], 'createdAt DESC', function(err, records){
             if(err){
-                res.send(500, {error: 'Database Error'});
+                console.log(err);
             }
-            res.view({slides:slides});
+            res.view(records);
+            return;
         });
     },
 
@@ -24,24 +29,33 @@ module.exports = {
 
     create:function(req, res){
         var image = req.file('image');
-	    image.upload({ dirname: '../../assets/images/slide'},function onUploadComplete (err, files) {				
-            if (err) return res.serverError(err);								
-                var imageFile  = files[0].fd;
-                var lastPart = imageFile.split("/").pop();
-                var name = req.body.name;
-                var description = req.body.description;
-                var slide = {
-                    name: name,
-                    description:description,
-                    image:lastPart
-                }
-                Slide.create(slide).exec(function(err){
-                    if(err){
-                        res.send(500, {error: 'Database Error'});
+        
+         if(req.session.user == null){
+            res.redirect(redirectAuthUser);
+            return;
+         }else{
+            image.upload({ dirname: path },function onUploadComplete (err, files) {				
+                if (err) return res.serverError(err);								
+                    var imageFile  = files[0].fd;
+                    var lastPart = imageFile.split("/").pop();
+                    var name = req.body.name;
+                    var description = req.body.description;
+                     var user = req.session.user;
+                    var slide = {
+                        name: name,
+                        description:description,
+                        image:lastPart,
+                        user:user
                     }
-                    res.redirect('/dashboard/slide');
-                });
-        });
+                    Slide.create(slide).exec(function(err){
+                        if(err){
+                            res.send(500, {error: 'Database Error'});
+                        }
+                        res.redirect(redirect);
+                        return;
+                    });
+             });
+         }
         
     },
 
@@ -51,9 +65,9 @@ module.exports = {
             if(err){
                 res.send(500, {error: 'Database Error'});
             }
-            res.redirect('/dashboard/slide');
+            res.redirect(redirect);
+            return;
         });
-        return false;
     },
 
     edit: function(req, res) {
@@ -63,20 +77,38 @@ module.exports = {
                 res.send(500, { error: 'Database Error' });
             }
             res.view({slide,slide});
+            return;
         });
     },
     update: function(req, res){
-        var name = req.body.name;
-        var description = req.body.description;
-
-        Slide.update({id: req.params.id},{name:name,description:description}).exec(function(err){
-            if(err){
-                res.send(500, {error: 'Database Error'});
-            }
-            res.redirect('/dashboard/slide');
-        });
-
-        return false;
+        var image = req.file('image');
+        
+         if(req.session.user == null){
+            res.redirect(redirectAuthUser);
+            return;
+         }else{
+            image.upload({ dirname: path },function onUploadComplete (err, files) {				
+                if (err) return res.serverError(err);								
+                    var imageFile  = files[0].fd;
+                    var lastPart = imageFile.split("/").pop();
+                    var name = req.body.name;
+                    var description = req.body.description;
+                     var user = req.session.user;
+                    var slide = {
+                        name: name,
+                        description:description,
+                        image:lastPart,
+                        user:user
+                    }
+                    Slide.update({id: req.params.id},slide).exec(function(err){
+                        if(err){
+                            res.send(500, {error: 'Database Error'});
+                        }
+                        res.redirect(redirect);
+                        return;
+                    });
+             });
+        }
     }
 };
 

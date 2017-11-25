@@ -44,7 +44,8 @@
                                           </tr>
                                       </thead>
                                       <tbody>
-                                            <% slides.forEach(function(slide,index){ %>
+                                        <% if(data) {%>  
+                                            <% data.forEach(function(slide,index){ %>
                                                 <tr>
                                                     <td><%= index + 1 %></td>
                                                     <td><img src="/images/slide/<%=  slide.image %>" class="img-circle img-responsive" alt="product image" width="50" height="100%" style="margin: 0 auto;"> </td>
@@ -66,6 +67,7 @@
                                                     </td>
                                                 </tr>
                                             <% }) %>
+                                        <% }%>        
                                       </tbody>
                                   </table>
                                   <ul class="pagination pull-right">

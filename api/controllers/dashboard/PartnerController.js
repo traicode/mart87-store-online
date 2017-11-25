@@ -5,18 +5,26 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var pager = require('sails-pager');
+var path = require('path').resolve(sails.config.appPath, 'assets/images/partner');
+var redirect = "/dashboard/partner";
+var redirectAuthUser = "/login";
+
 module.exports = {
 
 	index:function(req, res){
-        var page = req.params.page;
-        var limit = 10;
-        var offset = (page - 1) *  limit;
-        Partner.find({}).paginate({page: page, limit: offset}).exec(function(err, partners){
+        
+        var perPage = req.query.limit || 6;
+        var currentPage = req.query.page;
+        var conditions = {};
+        pager.paginate(Partner, conditions, currentPage, perPage, [{name:'user'}], 'createdAt DESC', function(err, records){
             if(err){
-                res.send(500, {error: 'Database Error'});
+                console.log(err);
             }
-            res.view({partners:partners});
+            res.view(records);
+            return;
         });
+
     },
 
     'new': function(req, res){
@@ -25,26 +33,35 @@ module.exports = {
 
     create:function(req, res){
         var image = req.file('image');
-	    image.upload({ dirname: '../../assets/images/partner'},function onUploadComplete (err, files) {				
+        
+         if(req.session.user == null){
+            res.redirect(redirectAuthUser);
+            return;
+         }else{
+          image.upload({ dirname: path },function onUploadComplete (err, files) {				
             if (err) return res.serverError(err);							
                 // save original file name
+                
                 var imageFile  = files[0].fd;
                 var lastPart = imageFile.split("/").pop();
                 var name = req.body.name;
                 var description = req.body.description;
+                var user = req.session.user;
                 var partner = {
                     name: name,
                     description:description,
-                    image:lastPart
+                    image:lastPart,
+                    user:user
                 }
                 Partner.create(partner).exec(function(err){
                     if(err){
                         res.send(500, {error: 'Database Error'});
                     }
-                    res.redirect('/dashboard/partner');
+                    res.redirect(redirect);
+                    return;
                 });
-        });
-        
+            });      
+        } 
     },
 
     delete: function(req, res){
@@ -53,9 +70,9 @@ module.exports = {
             if(err){
                 res.send(500, {error: 'Database Error'});
             }
-            res.redirect('/dashboard/partner');
+            res.redirect(redirect);
+            return;
         });
-        return false;
     },
 
     edit: function(req, res) {
@@ -65,20 +82,41 @@ module.exports = {
                 res.send(500, { error: 'Database Error' });
             }
             res.view({partner,partner});
+            return;
         });
     },
     update: function(req, res){
-        var name = req.body.name;
-        var description = req.body.description;
-
-        Partner.update({id: req.params.id},{name:name,description:description}).exec(function(err){
-            if(err){
-                res.send(500, {error: 'Database Error'});
-            }
-            res.redirect('/dashboard/partner');
-        });
-
-        return false;
+        
+        var image = req.file('image');
+        
+         if(req.session.user == null){
+            res.redirect(redirectAuthUser);
+            return;
+         }else{
+          image.upload({ dirname: path },function onUploadComplete (err, files) {				
+            if (err) return res.serverError(err);							
+                // save original file name
+                
+                var imageFile  = files[0].fd;
+                var lastPart = imageFile.split("/").pop();
+                var name = req.body.name;
+                var description = req.body.description;
+                var user = req.session.user;
+                var partner = {
+                    name: name,
+                    description:description,
+                    image:lastPart,
+                    user:user
+                }
+                Partner.update({id: req.params.id},partner).exec(function(err){
+                    if(err){
+                        res.send(500, {error: 'Database Error'});
+                    }
+                    res.redirect(redirect);
+                    return;
+                });
+            });      
+        } 
     }
 };
 

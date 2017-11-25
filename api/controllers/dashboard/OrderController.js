@@ -4,6 +4,9 @@
  * @description :: Server-side logic for managing Orders
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
+var pager = require('sails-pager');
+var redirect = "/dashboard/order";
+var redirectAuthUser = "/login";
 
 module.exports = {
 	index:function(req, res){
@@ -23,17 +26,30 @@ module.exports = {
     },
 
     create:function(req, res){
-        var order = {
-            name: req.body.name,
-            description:req.body.description
-        }
-        Order.create(order).exec(function(err){
-            if(err){
-                res.send(500, {error: 'Database Error'});
-            }
-            res.redirect('/dashboard/order');
-        });
+       var qty = req.body.qty;
+       var deliveryPrice = req.body.deliveryPrice;
+       var totalPrice = req.body.totalPrice;
+       var products = req.body.productId;
         
+        if(req.session.user == null){
+                res.redirect(redirectAuthUser);
+                return;
+            }else{
+                var order = {
+                    qty:qty,
+                    deliveryPrice:deliveryPrice,
+                    totalPrice:totalPrice,
+                    user: req.session.user,
+                    products:products
+                }
+                Order.create(order).exec(function(err){
+                    if(err){
+                        res.send(500, {error: 'Database Error'});
+                    }
+                    res.redirect('/dashboard/order');
+                });
+                
+        }
     },
 
     delete: function(req, res){
