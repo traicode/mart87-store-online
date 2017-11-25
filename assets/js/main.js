@@ -91,7 +91,10 @@ app.service('Storage', function() {
         });
         return total;
     }
-
+    
+    this.submitOrder =  function(){
+        localStorage.setItem('products', null);
+    }
 });
 
 // Parent Controller for Pager load data with increase and decrease qty for product cart
