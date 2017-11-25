@@ -16,7 +16,10 @@ module.exports = {
     },
     image:{
       type:'string'
-    }
+    },
+    user: {
+      model: 'User'
+    },
   }
 };
 

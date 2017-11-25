@@ -13,24 +13,30 @@ module.exports = {
         return params;
     },
 
-    slides: function (req, res) {
-        var params = this.params(req);
-        var page = params.page || 1;
-        var limit = params.limit || 10;
-        Slide.find({}).paginate({ page: page, limit: limit }).exec(function (err, slides) {
-            if (err) {
-                res.send(500, { error: 'Database Error' });
+    getSlides: function (req, res) {
+        var perPage = req.query.limit;
+        var currentPage = req.query.page;
+        var conditions = {};
+        pager.paginate(Slide, conditions, currentPage, perPage, [{name: 'user'}], 'createdAt DESC', function(err, records){
+            if(err){
+                 res.send(500, { err: 'Database Error' });
             }
-            Slide.count().exec(function (err, count) {
-                if (err) {
-                    res.send(500, { error: 'Database Error' });
-                }
-                var totalPages = Math.ceil(count / limit);
-                return res.json({ slides: slides, totalItems: count, totalPages: totalPages });
-            });
+            return res.json(records);
         });
     },
-
+    
+    getPartners: function (req, res) {
+            var perPage = req.query.limit;
+            var currentPage = req.query.page;
+            var conditions = {};
+            pager.paginate(Partner, conditions, currentPage, perPage, [{name: 'user'}], 'createdAt DESC', function(err, records){
+                if(err){
+                     res.send(500, { err: 'Database Error' });
+                }
+                return res.json(records);
+            });
+    },
+    
     mainCategories: function (req, res) {
         Category.find({}).exec(function (err, categories) {
             var i, j,chunk = 6, list6Categories = [];
@@ -45,7 +51,7 @@ module.exports = {
         var perPage = req.query.limit;
         var currentPage = req.query.page;
         var conditions = {};
-        pager.paginate(Category, conditions, currentPage, perPage, [{name: 'children'}], 'createdAt DESC', function(err, records){
+        pager.paginate(Category, conditions, currentPage, perPage, [{name: 'children'},{name: 'user'}], 'createdAt DESC', function(err, records){
             if(err){
                 console.log(err);
             }
@@ -133,18 +139,6 @@ module.exports = {
             });
         });
 
-    },
-
-    getPartners: function (req, res) {
-        var perPage = req.query.limit;
-        var currentPage = req.query.page;
-        var conditions = {};
-        pager.paginate(Partner, conditions, currentPage, perPage, [{name: 'user'}], 'createdAt DESC', function(err, records){
-            if(err){
-                 res.send(500, { err: 'Database Error' });
-            }
-            return res.json(records);
-        });
     },
 
     getProductsByCategoryId: function (req, res) {

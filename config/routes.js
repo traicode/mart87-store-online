@@ -142,7 +142,7 @@ module.exports.routes = {
   ['POST ' + PREFIX_ADMIN + '/order/delete/:id']: 'dashboard/OrderController.delete',
 
   //API
-  'GET /api/slides': 'ApiController.slides',
+  'GET /api/slides': 'ApiController.getSlides',
   'GET /api/categories': 'ApiController.categories',
   'GET /api/partners': 'ApiController.getPartners',
   'GET /api/products/category/:id': 'ApiController.getProductsByCategoryId',

@@ -320,6 +320,14 @@ body{
 	padding-right: 5px;
 }
 
+ #sidebar .sidebar{
+	top:80px;
+    width:230px;
+    z-index: 1000;
+    float: left;
+    background: transparent !important;
+}
+
 #slider img{
 	height: 300px;
 }

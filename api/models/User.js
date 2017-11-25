@@ -45,7 +45,23 @@ module.exports = {
             collection: 'Product',
             via: 'user'
         },
-
+        // Add a reference to Partner
+        partners: {
+            collection: 'Partner',
+            via: 'user'
+        },
+        // Add a reference to Slide
+        slides: {
+            collection: 'Slide',
+            via: 'user'
+        },
+        // Add a reference to Products
+        category: {
+          collection: 'Category',
+          via: 'user'
+        },
+        
+        
         toJSON: function () {
             var obj = this.toObject();
             delete obj.password;

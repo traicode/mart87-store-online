@@ -45,31 +45,44 @@
                 <i class="fa fa-user avatar"></i> &nbsp;Hello, <%= req.session.user.firstName %>&nbsp;
                 <i class="fa fa-caret-down"></i>
               </a>
-
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li>
-                  <a href="/account">
-                    <i class="fa fa-user"></i> &nbsp; My Account</a>
-                </li>
-                <li>
-                  <a href="/order">
-                    <i class="fa fa-history" aria-hidden="true"></i>
-                    &nbsp; Order History</a>
-                </li>
-                <li>
-                  <a href="/transaction">
-                    <i class="fa fa-exchange" aria-hidden="true"></i> &nbsp;Transactions</a>
-                </li>
-                <li>
-                  <a href="/wishlist">
-                    <i class="fa fa-heart" aria-hidden="true"></i> &nbsp; Wish Lists (0)</a>
-                </li>
-                <li role="separator" class="divider"></li>
-                <li class="logout">
-                  <a href="/logout">
-                    <i class="fa fa-power-off" aria-hidden="true"></i> &nbsp; Logout</a>
-                </li>
-              </ul>
+              <% if(req.session.user.role = '1') {%>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li>
+                    <a href="/dashboard/index">
+                      <i class="fa fa-user"></i> &nbsp; Dashboard</a>
+                  </li>
+                   <li class="logout">
+                    <a href="/logout">
+                      <i class="fa fa-power-off" aria-hidden="true"></i> &nbsp; Logout
+                    </a>
+                  </li>
+                </ul>
+              <% } else { %>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li>
+                    <a href="/account">
+                      <i class="fa fa-user"></i> &nbsp; My Account</a>
+                  </li>
+                  <li>
+                    <a href="/order">
+                      <i class="fa fa-history" aria-hidden="true"></i>
+                      &nbsp; Order History</a>
+                  </li>
+                  <li>
+                    <a href="/transaction">
+                      <i class="fa fa-exchange" aria-hidden="true"></i> &nbsp;Transactions</a>
+                  </li>
+                  <li>
+                    <a href="/wishlist">
+                      <i class="fa fa-heart" aria-hidden="true"></i> &nbsp; Wish Lists (0)</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li class="logout">
+                    <a href="/logout">
+                      <i class="fa fa-power-off" aria-hidden="true"></i> &nbsp; Logout</a>
+                  </li>
+                </ul>
+              <% } %>
             </div>
           </li>
           <% } else { %>

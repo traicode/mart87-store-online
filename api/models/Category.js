@@ -28,7 +28,10 @@ module.exports = {
     products: {
       collection: 'Product',
       via: 'category'
-    }
+    },
+    user: {
+      model: 'User'
+    },
   }
 };
 

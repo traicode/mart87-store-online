@@ -7,6 +7,7 @@
 var pager = require('sails-pager');
 var path = require('path').resolve(sails.config.appPath, 'assets/images/category');
 var redirect = "/dashboard/category";
+var redirectAuthUser = "/login";
 module.exports = {
 
     params: function(req) {
@@ -61,25 +62,30 @@ module.exports = {
             var description = req.body.description;
             var cateParent = null;
             
-            var parentId = req.body.parentId;
-            Category.findOne({id:parentId}).exec(function(err,categoryParent){
-                 if (err) return res.serverError(err);
-                 cateParent = categoryParent;
-                 
-                var category = {
-                    name: name,
-                    parent:categoryParent,
-                    description:description,
-                    image:lastPart,
-                }
-                Category.create(category).exec(function(err){
-                    if(err){
-                        res.send(500, {error: 'Database Error'});
+            if(req.session.user == null){
+                res.redirect(redirectAuthUser);
+            }else{
+                var user = req.session.user;
+                var parentId = req.body.parentId;
+                Category.findOne({id:parentId}).exec(function(err,categoryParent){
+                    if (err) return res.serverError(err);
+                    cateParent = categoryParent;
+                    var category = {
+                        name: name,
+                        parent:categoryParent,
+                        description:description,
+                        image:lastPart,
+                        user:user
                     }
-                    console.log("Category Insert Item :",  category);
-                    res.redirect(redirect);
+                    Category.create(category).exec(function(err){
+                        if(err){
+                            res.send(500, {error: 'Database Error'});
+                        }
+                        console.log("Category Insert Item :",  category);
+                        res.redirect(redirect);
+                    });
                 });
-            });
+            }
         });
     },
 

@@ -37,10 +37,6 @@ module.exports = {
     user: {
       model: 'User'
     },
-    
-    owners: {
-      model: 'User'
-    },
     // Add a reference to Order
     orders: {
       collection: 'Order',
