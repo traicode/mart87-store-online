@@ -2,7 +2,7 @@
 var app = angular.module("TheApp", []);
 
 //app.constant('API_END_POINT', 'http://all-nodes-ravuthz2.c9users.io:8080');
-app.constant('API_END_POINT', 'https://mart87.herokuapp.com');
+app.constant('API_END_POINT', '');
 
 // This also can seperate to a file app.service.js
 app.service('ApiService', function($http, API_END_POINT) {
@@ -143,7 +143,7 @@ app.controller('PagerCtr', function($scope, ApiService, Storage) {
     };
     
     $scope.parseImage = function (image) {
-    return "http://all-nodes-ravuthz2.c9users.io:8080/images/product/"+ image;
+    return "/images/product/"+ image;
     };
 
 });
