@@ -8,12 +8,17 @@
 module.exports = {
 
   attributes: {
-    
     qty:{
       type:'integer'
     },
+    deliveryPrice:{
+      type:'float'
+    },
     totalPrice:{
       type:'float'
+    },
+    phone:{
+      type:'string'
     },
     // Add a reference to User
     user: {

@@ -37,17 +37,7 @@ module.exports = {
             });
     },
     
-    mainCategories: function (req, res) {
-        Category.find({}).exec(function (err, categories) {
-            var i, j,chunk = 6, list6Categories = [];
-            for (i = 0, j = categories.length; i < j; i += chunk) {
-                list6Categories.push(categories.slice(i, i + chunk));
-            }
-            return res.json({categories: categories,list6Categories: list6Categories});
-        });
-    },
-
-    categories: function (req, res) {
+    getCategories: function (req, res) {
         var perPage = req.query.limit;
         var currentPage = req.query.page;
         var conditions = {};
@@ -58,11 +48,11 @@ module.exports = {
             return res.json(records);
         });
     },
-    products: function (req, res) {
+    getProducts: function (req, res) {
         var perPage = req.query.limit;
         var currentPage = req.query.page;
         var conditions = {};
-        pager.paginate(Product, conditions, currentPage, perPage, [{name: 'category'}], 'createdAt DESC', function(err, records){
+        pager.paginate(Product, conditions, currentPage, perPage, [{name: 'category'},{name:'user'}], 'createdAt DESC', function(err, records){
             if(err){
                 console.log(err);
             }
@@ -75,7 +65,7 @@ module.exports = {
         var perPage = req.query.limit;
         var currentPage = req.query.page;
         var conditions = {};
-        pager.paginate(Product, conditions, currentPage, perPage, [{name: 'category'}], 'createdAt DESC', function(err, records){
+        pager.paginate(Product, conditions, currentPage, perPage, [{name: 'category'},{name:'user'}], 'createdAt DESC', function(err, records){
             if(err){
                 console.log(err);
             }
@@ -84,72 +74,50 @@ module.exports = {
     },
 
     getNewProducts: function (req, res) {
-        var params = this.params(req);
-        var cateId = params.category;
-        var page = params.page || 1;
-        var limit = params.limit || 8;
-        Product.find({}).paginate({ page: page, limit: limit }).exec(function (err, products) {
-            if (err) {
-                res.send(500, { error: 'Database Error' });
+        var perPage = req.query.limit;
+        var currentPage = req.query.page;
+        var conditions = {};
+        pager.paginate(Product, conditions, currentPage, perPage, [{name: 'category'},{name:'user'}], 'createdAt DESC', function(err, records){
+            if(err){
+                console.log(err);
             }
-            Product.count().exec(function (err, count) {
-                if (err) {
-                    res.send(500, { error: 'Database Error' });
-                }
-                var totalPages = Math.ceil(count / limit);
-                return res.json({ products: products, totalItems: count, totalPages: totalPages });
-            });
+            return res.json(records);
         });
 
     },
     getRecommendProducts: function (req, res) {
-        var params = this.params(req);
-        var cateId = params.category;
-        var page = params.page || 1;
-        var limit = params.limit || 8;
-        Product.find({}).paginate({ page: page, limit: limit }).exec(function (err, products) {
-            if (err) {
-                res.send(500, { error: 'Database Error' });
+        var perPage = req.query.limit;
+        var currentPage = req.query.page;
+        var conditions = {};
+        pager.paginate(Product, conditions, currentPage, perPage, [{name: 'category'},{name:'user'}], 'createdAt DESC', function(err, records){
+            if(err){
+                console.log(err);
             }
-            Product.count().exec(function (err, count) {
-                if (err) {
-                    res.send(500, { error: 'Database Error' });
-                }
-                var totalPages = Math.ceil(count / limit);
-                return res.json({ products: products, totalItems: count, totalPages: totalPages });
-            });
+            return res.json(records);
         });
 
     },
     getPopularProducts: function (req, res) {
-        var params = this.params(req);
-        var cateId = params.category;
-        var page = params.page || 1;
-        var limit = params.limit || 8;
-        Product.find({}).paginate({ page: page, limit: limit }).exec(function (err, products) {
-            if (err) {
-                res.send(500, { error: 'Database Error' });
+        var perPage = req.query.limit;
+        var currentPage = req.query.page;
+        var conditions = {};
+        pager.paginate(Product, conditions, currentPage, perPage, [{name: 'category'},{name:'user'}], 'createdAt DESC', function(err, records){
+            if(err){
+                console.log(err);
             }
-            Product.count().exec(function (err, count) {
-                if (err) {
-                    res.send(500, { error: 'Database Error' });
-                }
-                var totalPages = Math.ceil(count / limit);
-                return res.json({ products: products, totalItems: count, totalPages: totalPages });
-            });
+            return res.json(records);
         });
-
     },
 
-    getProductsByCategoryId: function (req, res) {
+    getProductsByCategory: function (req, res) {
         var params = this.params(req);
         var cateId = params.id;
 
         var perPage = req.query.limit;
         var currentPage = req.query.page;
-        var conditions = {categoryId:cateId};
+        var conditions = {};
  
-        pager.paginate(Product, conditions, currentPage, perPage, [], 'createdAt DESC', function(err, records){
+        pager.paginate(Product, conditions, currentPage, perPage, [{name: 'category', query: {id: cateId}},{name:'user'}], 'createdAt DESC', function(err, records){
             if(err){
                 console.log(err);
             }
@@ -175,6 +143,5 @@ module.exports = {
             return res.json({ categories: categories });
         });
     }
-
 };
 

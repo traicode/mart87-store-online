@@ -6,11 +6,11 @@
  */
  
 var pager = require('sails-pager');
- 
+var redirectAuthUser = "/login";
+var redirect = "/dashboard/product";
   // "/home/ubuntu/workspace/mart78-ui/elephant/assets/images/product"
-  var path = require('path').resolve(sails.config.appPath, 'assets/images/product');
+var path = require('path').resolve(sails.config.appPath, 'assets/images/product');
         
-
 module.exports = {
 
     index: function (req, res) {
@@ -18,13 +18,12 @@ module.exports = {
         var perPage = req.query.limit || 10;
         var currentPage = req.query.page;
         var conditions = {};
-        pager.paginate(Product, conditions, currentPage, perPage, [{name: 'category'}], 'createdAt DESC', function(err, records){
+        pager.paginate(Product, conditions, currentPage, perPage, [{name: 'category'},{name:'user'}], 'createdAt DESC', function(err, records){
             if(err){
                 console.log(err);
             }
             res.view(records);
-            return res.json(records);
-            res.view(records);
+            return;
         });
 
     },
@@ -35,12 +34,13 @@ module.exports = {
                 res.send(500, { error: 'Database Error' });
             }
             res.view({ categories: categories });
+            return;
         });
     },
 
     create: function (req, res) {
         var images = [];
-       
+        
         req.file('files').upload({ dirname: path }, function (err, uploadedFiles) {
 
             if (err) return res.negotiate(err);
@@ -51,27 +51,42 @@ module.exports = {
                     images.push(image);
                 }
             }
-            var name = req.body.name;
-            var description = req.body.description;
-            var price = req.body.price;
-            var type = req.body.type;
-            var stock = req.body.stock;
-            var categoryId = req.body.categoryId;
-            var product = {
-                name: name,
-                price: price,
-                type: type,
-                stock: stock,
-                description: description,
-                images: images,
-                category:categoryId
-            }
-            Product.create(product).exec(function (err) {
-                if (err) {
-                    res.send(500, { error: 'Database Error' });
-                }
-                res.redirect('/dashboard/product');
-            });
+            
+            if(req.session.user == null){
+                res.redirect(redirectAuthUser);
+                return;
+            }else{
+                var user = req.session.user;
+                var cateId = req.body.categoryId;
+                Category.findOne({id:cateId}).exec(function(err,resCat){
+                    if (err) return res.serverError(err);
+                    var  category = resCat;
+                    
+                    var name = req.body.name;
+                    var description = req.body.description;
+                    var price = req.body.price;
+                    var type = req.body.type;
+                    var stock = req.body.stock;
+                    var product = {
+                        name: name,
+                        price: price,
+                        type: type,
+                        stock: stock,
+                        description: description,
+                        images: images,
+                        category:category,
+                        user:user
+                    }
+                    Product.create(product).exec(function (err) {
+                        if (err) {
+                            res.send(500, { error: 'Database Error' });
+                        }
+                        res.redirect(redirect);
+                        return;
+                    });
+            
+                });
+            }    
         });
     },
 
@@ -81,9 +96,9 @@ module.exports = {
             if (err) {
                 res.send(500, { error: 'Database Error' });
             }
-            res.redirect('/dashboard/product');
+            res.redirect(redirect);
+            return;
         });
-        return false;
     },
 
     edit: function (req, res) {
@@ -97,38 +112,61 @@ module.exports = {
                     res.send(500, { error: 'Database Error' });
                 }
                 res.view({ product, product, categories: categories });
+                return;
             });
         });
     },
     update: function (req, res) {
-        var fileUpload = req.file('fileUpload');
-        fileUpload.upload({ dirname: '../../assets/images/product' }, function onUploadComplete(err, files) {
-            if (err) return res.serverError(err);
-            var imageFile = files[0].fd;
-            var lastPart = imageFile.split("/").pop();
-            // save original file name
-            var name = req.body.name;
-            var description = req.body.description;
-            var price = req.body.price;
-            var type = req.body.type;
-            var stock = req.body.stock;
-            var categoryId = req.body.categoryId;
-            var product = {
-                name: name,
-                categoryId: categoryId,
-                price: price,
-                type: type,
-                stock: stock,
-                description: description,
-                image: lastPart
-            }
-            Product.update({ id: req.params.id }, product).exec(function (err) {
-                if (err) {
-                    res.send(500, { error: 'Database Error' });
+        var images = [];
+        
+        req.file('files').upload({ dirname: path }, function (err, uploadedFiles) {
+
+            if (err) return res.negotiate(err);
+            
+            if (uploadedFiles.length > 0) {
+                for (var i =0; i<uploadedFiles.length; i++) {
+                    var image = uploadedFiles[i].fd.split("/").pop();
+                    images.push(image);
                 }
-                res.redirect('/dashboard/product');
-            });
+            }
+            
+            if(req.session.user == null){
+                res.redirect(redirectAuthUser);
+                return;
+            }else{
+                var user = req.session.user;
+                var cateId = req.body.categoryId;
+                Category.findOne({id:cateId}).exec(function(err,resCat){
+                    if (err) return res.serverError(err);
+                    var  category = resCat;
+                    
+                    var name = req.body.name;
+                    var description = req.body.description;
+                    var price = req.body.price;
+                    var type = req.body.type;
+                    var stock = req.body.stock;
+                    var product = {
+                        name: name,
+                        price: price,
+                        type: type,
+                        stock: stock,
+                        description: description,
+                        images: images,
+                        category:category,
+                        user:user
+                    }
+                    Product.update({ id: req.params.id }, product).exec(function (err) {
+                        if (err) {
+                            res.send(500, { error: 'Database Error' });
+                        }
+                        res.redirect(redirect);
+                        return;
+                    });
+            
+                });
+            }    
         });
+    
     }
 };
 

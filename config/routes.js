@@ -143,14 +143,14 @@ module.exports.routes = {
 
   //API
   'GET /api/slides': 'ApiController.getSlides',
-  'GET /api/categories': 'ApiController.categories',
+  'GET /api/categories': 'ApiController.getCategories',
   'GET /api/partners': 'ApiController.getPartners',
-  'GET /api/products/category/:id': 'ApiController.getProductsByCategoryId',
+  'GET /api/products/category/:id': 'ApiController.getProductsByCategory',
   'GET /api/products/new': 'ApiController.getNewProducts',
   'GET /api/products/recommend': 'ApiController.getRecommendProducts',
   'GET /api/products/popular': 'ApiController.getPopularProducts',
   'GET /api/product/name': 'ApiController.getProductName',
   'GET /api/category/name': 'ApiController.getCategoryName',
-  'GET /api/products': 'ApiController.products',
+  'GET /api/products': 'ApiController.getProducts',
   'GET /api/products/top':'ApiController.getTopProducts',
 };
