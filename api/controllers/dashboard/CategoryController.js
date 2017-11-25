@@ -5,7 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var pager = require('sails-pager');
-var path = require('path').resolve(sails.config.appPath, 'assets/images/category');
+var path = require('path').resolve(sails.config.appPath, '/assets/images/category');
 var redirect = "/dashboard/category";
 var redirectAuthUser = "/login";
 module.exports = {
@@ -32,12 +32,12 @@ module.exports = {
         var perPage = req.query.limit || 10;
         var currentPage = req.query.page;
         var conditions = {};
-        pager.paginate(Category, conditions, currentPage, perPage, [{name: 'parent'}], 'createdAt DESC', function(err, records){
+        pager.paginate(Category, conditions, currentPage, perPage, [{name: 'parent'},{name:'user'}], 'createdAt DESC', function(err, records){
             if(err){
                 console.log(err);
             }
             res.view(records);
-            return res.json(records);
+            return;
         });
     },
 
@@ -47,6 +47,7 @@ module.exports = {
                 res.send(500, {error: 'Database Error'});
             }
             res.view({categories:categories});
+            return;
        });
     },
 
@@ -58,12 +59,14 @@ module.exports = {
             
             var imageFile  = files[0].fd;
             var lastPart = imageFile.split("/").pop();
+            
             var name = req.body.name;
             var description = req.body.description;
             var cateParent = null;
             
             if(req.session.user == null){
                 res.redirect(redirectAuthUser);
+                return;
             }else{
                 var user = req.session.user;
                 var parentId = req.body.parentId;
@@ -83,6 +86,7 @@ module.exports = {
                         }
                         console.log("Category Insert Item :",  category);
                         res.redirect(redirect);
+                        return;
                     });
                 });
             }
@@ -96,6 +100,7 @@ module.exports = {
                 res.send(500, {error: 'Database Error'});
             }
             res.redirect(redirect);
+            return;
         });
     },
 
@@ -110,6 +115,7 @@ module.exports = {
                     res.send(500, {error: 'Database Error'});
                 }
                 res.view({category,category,categories:categories});
+                return;
            });
         });
     },
@@ -139,6 +145,7 @@ module.exports = {
                     }
                     console.log("Category update Item :",  category);
                     res.redirect(redirect);
+                    return;
                 });
             });
         });
