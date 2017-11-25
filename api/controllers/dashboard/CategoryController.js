@@ -5,7 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var pager = require('sails-pager');
-var path = require('path').resolve(sails.config.appPath, '/assets/images/category');
+var path = require('path').resolve(sails.config.appPath, 'assets/images/category');
 var redirect = "/dashboard/category";
 var redirectAuthUser = "/login";
 module.exports = {

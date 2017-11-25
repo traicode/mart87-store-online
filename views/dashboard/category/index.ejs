@@ -47,7 +47,9 @@
                                             <% data.forEach(function(category,index){ %>
                                                 <tr>
                                                     <td><%= index + 1 %></td>
-                                                    <td><img src="<%=sails.getBaseUrl()%>/images/category/<%=  category.image %>" class="img-circle img-responsive" alt="product image" width="50" height="100%" style="margin: 0 auto;"> </td>
+                                                    <td><img src="http://all-nodes-ravuthz2.c9users.io:8080/images/category/<%=  category.image %>" class="img-circle img-responsive" alt="product image" width="50" height="100%" style="margin: 0 auto;"> </td>
+                                                    <!--<td><img src="<%=sails.getBaseUrl()%>/images/category/<%=  category.image %>" class="img-circle img-responsive" alt="product image" width="50" height="100%" style="margin: 0 auto;"> </td>
+                                                    -->
                                                     <td><%= category.name %></td>
                                                     <td><%=  category.description %></td>
                                                     <td>

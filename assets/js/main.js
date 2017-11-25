@@ -91,9 +91,6 @@ app.service('Storage', function() {
         return total;
     }
 
-    this.removeItemFromCart = function(item){
-        
-    }
 });
 
 // Parent Controller for Pager load data with increase and decrease qty for product cart
@@ -144,8 +141,8 @@ app.controller('PagerCtr', function($scope, ApiService, Storage) {
         console.log("Item Click ",  $scope.selectedProduct);
     };
     
-    $scope.parseImage = function (imageType,image) {
-        return "http://all-nodes-ravuthz2.c9users.io:8080/images/"+ imageType +"/"+ image;
+    $scope.parseImage = function (image) {
+    return "http://all-nodes-ravuthz2.c9users.io:8080/images/product/"+ image;
     };
 
 });
