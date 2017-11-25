@@ -132,8 +132,9 @@ app.controller('PagerCtr', function($scope, ApiService, Storage) {
         Storage.addItemToCart(item);
         $scope.filterQty($scope.products);
         console.log("All items in cart: ", Storage.totalQty());
-        
+    
         console.log("Select Product ",  item);
+        $scope.loadData();
     };
     
     $scope.onImageClick = function(item) {
@@ -143,7 +144,7 @@ app.controller('PagerCtr', function($scope, ApiService, Storage) {
     };
     
     $scope.parseImage = function (image) {
-    return "/images/product/"+ image;
+        return "/images/product/"+ image;
     };
 
 });
@@ -197,7 +198,7 @@ app.controller('CategoryCtr', function($scope, $controller, ApiService) {
 
 app.controller('ProductByCategoryCtr', function($scope, $controller, ApiService) {
     $scope.loadData = function(categoryId,page, limit) {
-        ApiService.getProductByCategory(categoryId,page, limit).then(function(res) {
+        ApiService.getProductByCategory(categoryId, page, limit).then(function(res) {
             $scope.products = res.data;
             $scope.title = 'Category Name';
             console.log("Product By Category : ",  res.data);

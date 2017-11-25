@@ -18,8 +18,8 @@
                                             <!-- product-image-large -->
                                             <div class="product-image-large">
                                                 <div class="easyzoom easyzoom--overlay easyzoom-with-thumbnails">
-                                                    <a href="{{ parseImage(selectedProduct.images[0]) }}">
-                                                    <img src="{{ parseImage(selectedProduct.images[0]) }}" width="50%" height="50%" />
+                                                    <a href="<%=sails.getBaseUrl()%>images/product/{{ selectedProduct.images[0] }}">
+                                                    <img src="<%=sails.getBaseUrl()%>images/product/{{ selectedProduct.images[0] }}" width="50%" height="50%" />
                                                     </a>
                                                 </div>
 
@@ -27,18 +27,18 @@
                                             <!-- /product-image-large -->
                                             <!-- product-image-sub -->
                                             <div class="product-image-sub">
-                                                <a href="{{ parseImage(selectedProduct.images[1]) }}" data-standard="{{ parseImage(selectedProduct.images[1]) }}">
-                                                    <img src="{{ parseImage(selectedProduct.images[1]) }}" width="50%" height="50%" />
+                                                <a href="<%=sails.getBaseUrl()%>images/product/{{ selectedProduct.images[1] }}" data-standard="<%=sails.getBaseUrl()%>images/product/{{ selectedProduct.images[1] }}">
+                                                    <img src="<%=sails.getBaseUrl()%>images/product/{{ selectedProduct.images[1] }}" width="50%" height="50%" />
                                                 </a>
                                             </div>
                                             <div class="product-image-sub">
-                                                <a href="{{ parseImage(selectedProduct.images[2]) }}" data-standard="{{ parseImage(selectedProduct.images[2]) }}">
-                                                    <img src="{{ parseImage(selectedProduct.images[2]) }}" width="50%" height="50%" />
+                                                <a href="<%=sails.getBaseUrl()%>images/product/{{ selectedProduct.images[2]}}" data-standard="<%=sails.getBaseUrl()%>images/product/{{ selectedProduct.images[2] }}">
+                                                    <img src="<%=sails.getBaseUrl()%>images/product/{{ selectedProduct.images[2] }}" width="50%" height="50%" />
                                                 </a>
                                             </div>
                                             <div class="product-image-sub">
-                                                <a href="{{ parseImage(selectedProduct.images[3]) }}" data-standard="{{ parseImage(selectedProduct.images[3]) }}">
-                                                    <img src="{{ parseImage(selectedProduct.images[3]) }}" width="50%" height="50%" />
+                                                <a href="<%=sails.getBaseUrl()%>images/product/{{ selectedProduct.images[3] }}" data-standard="<%=sails.getBaseUrl()%>images/product/{{ selectedProduct.images[3] }}">
+                                                    <img src="<%=sails.getBaseUrl()%>images/product/{{ selectedProduct.images[3] }}" width="50%" height="50%" />
                                                 </a>
                                             </div>
 
