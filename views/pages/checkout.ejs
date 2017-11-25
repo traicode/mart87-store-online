@@ -19,91 +19,6 @@
   <div class="container">
     <h2>Checkout</h2>
     <div class="border-top"></div>
-    <!-- 	Checkout -->
-    <!-- Checkout Option -->
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <i class="fa fa-sign-out"></i> Checkout Option &nbsp;
-              <i class="fa fa-caret-down"></i>
-            </a>
-          </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-
-            <!-- New Member -->
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              <div class="new-costomer-login">
-                <h3>New Customer</h3>
-                <h5>Register Account</h5>
-                <span>
-                  <input type="radio" checked="checked"> Register Account</span>
-                <p>
-                  By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders
-                  you have previously made.
-                </p>
-
-                <!-- Register button -->
-                <a href="../auth/register.html" class="btn btn-success btn-new-register">Create New Account</a>
-                <!-- /Register button -->
-
-              </div>
-            </div>
-            <!-- /New Member -->
-
-
-            <!-- Return Customer  -->
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              <div class="return-costomer-login">
-                <h3>Returning Customer</h3>
-                <h5>I am a returning customer</h5>
-                <!-- facebook login -->
-                <i class="fa fa-facebook"></i>
-                <button type="button" class="btn btn-primary btn-block active btn-facebook">Login with Facebbok</button>
-
-                <h2>OR</h2>
-
-                <!-- 	form login -->
-                <div class="form-login">
-                  <form>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email address">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                    </div>
-
-                    <div class="form-group">
-                      <a href="">Forgotten Password</a>
-                    </div>
-
-                    <button type="submit" class="btn btn-success btn-block btn-return-login">Login</button>
-                  </form>
-                </div>
-                <!-- 	form login -->
-
-
-
-                <!-- /facebook login -->
-              </div>
-
-            </div>
-            <!-- /Return Customer -->
-
-
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Checkout Option -->
 
     <!-- Account & Billing Details -->
 
@@ -170,7 +85,7 @@
                   <tbody>
                     <tr ng-repeat="item in cartItems">
                       <td width="5%">
-                        <img src="{{ parseImage(item.images[0]) }}" alt="" >
+                        <img src="{{parseProImage(item.images[0])}}" alt="" >
                       </td>
                       <td>
                         <span class="pro_name">{{ item.name }}</span>
@@ -204,12 +119,12 @@
                   </tbody>
                 </table>
               </div>
-              <form>
-                  <input type="hidden" name="deliveryPrice" value="deliveryFee">
-                  <input type="hidden" name="subTotal" value="subTotal">
-                  <input type="hidden" name="grandTotal" value="grandTotal">
-                  <input type="hidden" name="products" value="cartItems">
-                <input class="btn btn-success btn-confirm-order pull-right" value="Confirm Order">
+              <form action="/checkout/order" role="form" method="post" enctype="multipart/form-data">
+                  <input type="hidden" name="deliveryPrice" value="{{deliveryFee}}">
+                  <input type="hidden" name="subTotal" value="{{subTotal}}">
+                  <input type="hidden" name="grandTotal" value="{{grandTotal}}">
+                  <input type="hidden" name="products" value="{{cartItems}}">
+                <input type="submit" class="btn btn-success btn-confirm-order pull-right" value="Confirm Order">
               </form>
             </div>
           </div>

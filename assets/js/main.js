@@ -143,10 +143,13 @@ app.controller('PagerCtr', function($scope, ApiService, Storage) {
         console.log("Item Click ",  $scope.selectedProduct);
     };
     
-    $scope.parseImage = function (image) {
-        return "/images/product/"+ image;
+    $scope.parseProImage = function (image) {
+        return "http://localhost:1337/images/product/"+ image;
     };
 
+    $scope.parseCatImage = function (image) {
+        return "http://localhost:1337/images/category/"+ image;
+    };
 });
 
 // these controllers can seperate to files app.{ controller name }.js
@@ -187,6 +190,7 @@ app.controller('PopularProductCtr', function($scope, $controller) {
 });
 
 app.controller('CategoryCtr', function($scope, $controller, ApiService) {
+    angular.extend(this, $controller('PagerCtr', { $scope: $scope }));
     $scope.loadData = function(page, limit) {
         ApiService.getCategory(page, limit).then(function(res) {
             $scope.categories = res.data;
@@ -227,7 +231,7 @@ app.controller('NavbarCtr', function($scope, $controller, Storage) {
     $scope.deliveryFee = 0;
     
     $scope.productSelectedItem = 0;
-    
+    angular.extend(this, $controller('PagerCtr', { $scope: $scope }));
     $scope.init = function() {
         var products = Storage.getProduct();
         console.log("Product ",  products);
@@ -257,6 +261,7 @@ app.controller('CheckoutCtr', function($scope, $controller, Storage) {
     $scope.deliveryFee = 0;
     
     $scope.price = 0;
+    angular.extend(this, $controller('PagerCtr', { $scope: $scope }));
     $scope.init = function() {
         var products = Storage.getProduct();
         console.log("Product CheckoutCtr ",  products);

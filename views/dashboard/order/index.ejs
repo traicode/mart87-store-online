@@ -38,25 +38,24 @@
                                       <thead>
                                           <tr>
                                               <th>No</th>
-                                              <th>USERNAME</th>
-                                              <th>EMAIL</th>
-                                              <th>ORDER DATE</th>
+                                              <th>USER</th>
+                                              <th>SUB PRICE</th>
+                                              <th>DELIVERY PRICE</th>
+                                              <th>GRAND PRICE</th>
                                               <th>STATUS</th>
-                                              <th>TOTAL</th>
                                               <th>ACTION</th>
                                           </tr>
                                       </thead>
                                       <tbody>
-                                            <% if (orders) { %>
-                                            <% orders.forEach(function(order,index){ %>
+                                            <% if (data) { %>
+                                            <% data.forEach(function(order,index){ %>
                                                 <tr>
                                                     <td><%= index + 1 %></td>
                                                     <td><%=  order.name %></td>
-                                                    <td><%=  order.description %></td>
-                                                    <td><%=  order.name %></td>
-                                                    <td><%=  order.description %></td>
-                                                    <td><%=  order.createdAt %></td>
-                                                    <td><%=  order.createdAt %></td>
+                                                    <td><%=  order.subTotalPrice %></td>
+                                                    <td><%=  order.deliveryPrice %></td>
+                                                    <td><%=  order.grandTotalPrice %></td>
+                                                    <td><%=  order.status %></td>
                                                     <td>
                                                         <ul class="list-inline">
                                                             <li>
@@ -82,13 +81,18 @@
                                             <% } %>
                                       </tbody>
                                   </table>
-                                  <ul class="pagination pull-right">
-                                    <li class="previous"><a href="#">Prev</a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li class="next"><a href="#">Next</a></li>
-                                  </ul>
+                                  <ul class="pagination pull-left">
+                                        <li>Total : <%= meta.total %></li>
+                                      </ul>
+                                      <ul class="pagination pull-right">
+                                        <li class="previous"><a href="#">Prev</a></li>
+                                        <% if(meta.pageCount > 1)  {%>
+                                            <% for(var i=1; i <= meta.pageCount; i++) { %>
+                                                <li><a href="<%=sails.getBaseUrl()%>/dashboard/category?page=<%= i %>"><%= i %></a></li>
+                                             <% } %>
+                                        <%}%> 
+                                        <li class="next"><a href="#">Next</a></li>
+                                      </ul>
                               </div>
                           </div>
                           <!-- /.panel-body -->

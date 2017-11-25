@@ -23,6 +23,13 @@ module.exports.routes = {
     view: 'pages/category'
   },
 /**
+* CHECKOUT
+*/
+'POST /checkout/order': 'CheckoutController.order',
+
+
+
+/**
  * OTHER PAGE
  */
   '/frequently-asked-questions': {

@@ -10,14 +10,16 @@ var redirectAuthUser = "/login";
 
 module.exports = {
 	index:function(req, res){
-        var page = req.params.page;
-        var limit = 10;
-        var offset = (page - 1) *  limit;
-        Order.find({}).paginate({page: page, limit: offset}).exec(function(err, orders){
+
+        var perPage = req.query.limit || 10;
+        var currentPage = req.query.page;
+        var conditions = {};
+        pager.paginate(Order, conditions, currentPage, perPage, [], 'createdAt DESC', function(err, records){
             if(err){
-                res.send(500, {error: 'Database Error'});
+                console.log(err);
             }
-            res.view({orders:orders});
+            res.view(records);
+            return;
         });
     },
 

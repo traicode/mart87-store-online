@@ -8,13 +8,13 @@
 module.exports = {
 
   attributes: {
-    qty:{
-      type:'integer'
+    subTotalPrice:{
+      type:'float'
     },
     deliveryPrice:{
       type:'float'
     },
-    totalPrice:{
+    grandTotalPrice:{
       type:'float'
     },
     phone:{
@@ -23,11 +23,15 @@ module.exports = {
     // Add a reference to User
     user: {
       model: 'User'
+    }, 
+    // Add a reference to OrderDetail
+    orderdetail: {
+      collection: 'OrderDetail',
+      via: 'order',
+      dominant: true
     },
-    // Add a reference to Product
-    products: {
-      collection: 'Product',
-      via: 'orders'
+    status:{
+      type:'string'
     }
   }
 };

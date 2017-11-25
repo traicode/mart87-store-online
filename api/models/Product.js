@@ -37,12 +37,13 @@ module.exports = {
     user: {
       model: 'User'
     },
-    // Add a reference to Order
-    orders: {
-      collection: 'Order',
-      via: 'products',
+
+     // Add a reference to OrderDetail
+    product: {
+      collection: 'OrderDetail',
+      via: 'product',
       dominant: true
-    }
+    },
   }
 };
 
