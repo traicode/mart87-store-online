@@ -1,5 +1,5 @@
 <!-- New Product -->
-<section id="new-product" ng-controller="ProductByCategoryCtr">
+<section id="new-product" ng-controller="ProductByCategoryCtr" ng-init="categoryId = '<%= req.params.id %>'"> 
     <div class="container-fluid">
         <!-- Title -->
         <center>

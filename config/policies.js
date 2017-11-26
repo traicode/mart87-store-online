@@ -18,7 +18,12 @@
 
 
 module.exports.policies = {
-  ' * ' : [ 'sessionAuth'],
+
+  '*' : ['getCategories','getPartners','getSlides'],
+
+
+
+
   'IndexController': {
     '*': 'isAdministrator'
   },
@@ -38,5 +43,6 @@ module.exports.policies = {
 
   IndexController: {
     '*': ['isAdministrator']
-  }
+  },
+
 };

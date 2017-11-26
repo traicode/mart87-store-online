@@ -22,6 +22,7 @@
 </head>
 
 <body ng-app="TheApp">
+   
   <!-- 	header -->
   <header>
     <!-- Navbar -->
@@ -98,7 +99,7 @@
             <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
             <a href="#" class="dropdown-toggle" role="button" ng-click="onToggleCartBox()">
               <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-              <span id="basket_qty">{{ productSelectedItem }}</span>
+              <span id="basket_qty">{{ totalQty }}</span>
               item(s) -
               <span id="basket_price">{{ subTotal | currency : '$' }}</span>
             </a>
@@ -194,10 +195,11 @@
   </header>
   <!-- 	/header -->
 
+ 
 
   <%- body %>
 
-
+ 
 
     <!-- messenger-button -->
     <section id="messenger">

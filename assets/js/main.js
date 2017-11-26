@@ -4,6 +4,10 @@ var app = angular.module("TheApp", []);
 //app.constant('API_END_POINT', 'http://all-nodes-ravuthz2.c9users.io:8080');
 app.constant('API_END_POINT', '');
 
+app.run(function($rootScope,Storage) {
+    $rootScope.totalQty = 0;
+});
+
 // This also can seperate to a file app.service.js
 app.service('ApiService', function($http, API_END_POINT) {
 
@@ -66,7 +70,6 @@ app.service('Storage', function() {
         
         this.setProduct(products);
         
-        console.clear();
         angular.forEach(products, function(item, key) {
             console.log("Products " + item.id + ' => ' + item.qty);
         });
@@ -98,16 +101,17 @@ app.service('Storage', function() {
 });
 
 // Parent Controller for Pager load data with increase and decrease qty for product cart
-app.controller('PagerCtr', function($scope, ApiService, Storage) {
+app.controller('PagerCtr', function($scope,  $rootScope, ApiService, Storage) {
     $scope.products = [];
     $scope.selectedProduct = {};
     $scope.showProductModal = false;
-  
+
     $scope.loadData = function(page, limit) {
         ApiService.getProduct().then(function(res) {
             if (res.data) {
                 $scope.products = res.data;
                 $scope.filterQty($scope.products);
+                $scope.countQty();
             }
         });
     };
@@ -137,9 +141,16 @@ app.controller('PagerCtr', function($scope, ApiService, Storage) {
         console.log("All items in cart: ", Storage.totalQty());
     
         console.log("Select Product ",  item);
+        
         $scope.loadData();
+
     };
     
+    $scope.countQty =  function(){
+        $rootScope.totalQty = Storage.totalQty();
+        console.log("Total Qty ",    $rootScope.totalQty);        
+    };
+
     $scope.onImageClick = function(item) {
         $scope.selectedProduct = item;
         $scope.showProductModal = true;
@@ -171,6 +182,7 @@ app.controller('NewProductCtr', function($scope, $controller, ApiService) {
             if (res.data) {
                 $scope.products = res.data;
                 $scope.filterQty($scope.products);
+                $scope.countQty();
             }
         });
     };
@@ -206,11 +218,13 @@ app.controller('CategoryCtr', function($scope, $controller, ApiService) {
 });
 
 app.controller('ProductByCategoryCtr', function($scope, $controller, ApiService) {
-    $scope.loadData = function(categoryId,page, limit) {
-        ApiService.getProductByCategory(categoryId, page, limit).then(function(res) {
+    angular.extend(this, $controller('PagerCtr', { $scope: $scope }));
+    $scope.title = 'Category Name';
+    $scope.loadData = function(page, limit) {
+        ApiService.getProductByCategory(page, limit).then(function(res) {
             $scope.products = res.data;
-            $scope.title = 'Category Name';
-            console.log("Product By Category : ",  res.data);
+            $scope.filterQty($scope.products);
+            $scope.countQty();
         });
     };
 
@@ -228,6 +242,8 @@ app.controller('PartnerCtr', function($scope, $controller, ApiService) {
 });
 
 app.controller('NavbarCtr', function($scope, $controller, Storage) {
+    angular.extend(this, $controller('PagerCtr', { $scope: $scope }));
+
     $scope.cartItems = [];
     $scope.toggleCartBox = false;
     
@@ -235,8 +251,6 @@ app.controller('NavbarCtr', function($scope, $controller, Storage) {
     $scope.grandTotal = 0;
     $scope.deliveryFee = 0;
     
-    $scope.productSelectedItem = 0;
-    angular.extend(this, $controller('PagerCtr', { $scope: $scope }));
     $scope.init = function() {
         var products = Storage.getProduct();
         console.log("Product ",  products);
@@ -245,8 +259,7 @@ app.controller('NavbarCtr', function($scope, $controller, Storage) {
          var price = Storage.totalPrice();
           $scope.subTotal = price;
           $scope.grandTotal = ($scope.subTotal + $scope.deliveryFee); 
-          
-          $scope.productSelectedItem = Storage.totalQty();
+        
     };
     
     $scope.onToggleCartBox = function() {
@@ -257,23 +270,37 @@ app.controller('NavbarCtr', function($scope, $controller, Storage) {
     $scope.init();
 });
 
-app.controller('CheckoutCtr', function($scope, $controller, Storage) {
+app.controller('CheckoutCtr', function($scope, $controller, Storage,$http) {
+    angular.extend(this, $controller('PagerCtr', { $scope: $scope }));
+
     $scope.cartItems = [];
-    
     $scope.subTotal = 0;
     $scope.grandTotal = 0;
     $scope.deliveryFee = 0;
-    
-    $scope.price = 0;
-    angular.extend(this, $controller('PagerCtr', { $scope: $scope }));
+  
+
+   
     $scope.init = function() {
-        var products = Storage.getProduct();
-        console.log("Product CheckoutCtr ",  products);
-         $scope.cartItems  = products;
-         
-         var price = Storage.totalPrice();
-          $scope.subTotal = price;
-          $scope.grandTotal = ($scope.subTotal + $scope.deliveryFee); 
+        $scope.cartItems  = Storage.getProduct();
+        $scope.subTotal = Storage.totalPrice();
+        $scope.grandTotal = ($scope.subTotal + $scope.deliveryFee); 
+    };
+
+    $scope.onSubmitOrder = function(){
+        var data = {
+            cartItems :  $scope.cartItems,
+            subTotal : $scope.subTotal,
+            grandTotal :  $scope.grandTotal,
+            deliveryFee :  $scope.deliveryFee
+        };
+
+        console.log("Data : ",  data);
+
+        $http.post("/checkout/submitOrder",{json:data}).then(function(res){
+            console.log("res :  ",  res);  
+
+
+        });
     };
     
     $scope.init();

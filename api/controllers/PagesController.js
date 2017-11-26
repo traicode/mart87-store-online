@@ -9,46 +9,20 @@
 module.exports = {
 
     index: function (req, res) {
-
-        Slide.find({}).exec(function (err, sliders) {
-
-            Category.find({}).exec(function (err, categories) {
-
-                var i, j, chunk = 6, list6Categories = [];
-
-                for (i = 0, j = categories.length; i < j; i += chunk) {
-                    list6Categories.push(categories.slice(i, i + chunk));
-                }
-
-                return res.view('index',{
-                    sliders: sliders,
-                    categories: categories,
-                    list6Categories: list6Categories
-                });
-            });
-
+        return res.view({
+            categories : req.categories,
+            partners : req.partners,
+            slides : req.slides
         });
     },
 
     category: function (req, res) {
-        Slide.find({}).exec(function (err, sliders) {
-
-            Category.find({}).exec(function (err, categories) {
-
-                var i, j, chunk = 6, list6Categories = [];
-
-                for (i = 0, j = categories.length; i < j; i += chunk) {
-                    list6Categories.push(categories.slice(i, i + chunk));
-                }
-
-                return res.view({
-                    sliders: sliders,
-                    categories: categories,
-                    list6Categories: list6Categories
-                });
-            });
-
+        return res.view({
+            categories : req.categories,
+            partners : req.partners,
+            slides : req.slides
         });
     }
+    
 };
 

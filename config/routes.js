@@ -6,10 +6,6 @@ module.exports.routes = {
   /**
    * PAGE FRONT-END
    */
-
-  // '/': {
-  //   view: 'index'
-  // },
   '/': 'PagesController.index',
 
   '/category/:id': 'PagesController.category',
@@ -26,7 +22,7 @@ module.exports.routes = {
 /**
 * CHECKOUT
 */
-'POST /checkout/order': 'CheckoutController.order',
+'POST /checkout/submitOrder': 'CheckoutController.submitOrder',
 
 
 

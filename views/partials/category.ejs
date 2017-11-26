@@ -2,20 +2,36 @@
     <div class="sidebar affix">
         <div class="list-group">
             <ul class="parent-menu affix">
-                <li ng-repeat="category in categories">
-                    <a href="/category/{{ category.id }}" class="list-group-item">
-                        <span class="icon-sidebar">
-                            <img src="{{parseCatImage(category.image)}}" alt="">
-                        </span>{{ category.name }}</a>
-                    <ul class="child-menu">
-                        <li>
-                            <a href="/category/{{ category.id }}"><h4>{{ category.name }}</h4></a>
-                        </li>
-                        <li ng-repeat="child in category.children">
-                            <a href="/category/{{ child.id }}">{{ child.name }}</a>
-                        </li>
-                    </ul>
-                </li>
+                    <% if(categories) {%>
+                        <% _.each(categories, function(category) {%>
+                            <li>
+                            <a href="/category/<%= category.id %>" class="list-group-item">
+                                <span class="icon-sidebar">
+                                    <img src="/images/category/<%= category.image %>" alt="">
+                                </span><%= category.name %></a>
+                                
+                                    
+                                        
+                                            <ul class="child-menu">  
+                                                <li>
+                                                    <a href="/category/<%= category.id %>"><h4><%= category.name %></h4></a>
+                                                </li> 
+                                                <% if(category.children.length > 0) {%>
+                                                    <% _.each(category.children, function(child) {%>
+                                                        <li>
+                                                            <a href="/category/<%= child.id %>"><%= child.name %></a>
+                                                        </li>
+                                                    <% });%>
+                                                <% } %>    
+                                            </ul>
+                                        
+                                
+                            </li>
+
+
+                        <% });%>
+                    <% } %>
+                
             </ul>
         </div>
     </div>

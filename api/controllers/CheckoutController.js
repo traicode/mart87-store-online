@@ -42,5 +42,9 @@ module.exports = {
             });
         }
     },
+
+    submitOrder : function(req,res){
+        console.log("Req orders ; ",  req.param('json'));
+    }
 };
 
