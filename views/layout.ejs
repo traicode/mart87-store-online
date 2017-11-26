@@ -46,7 +46,7 @@
                 <i class="fa fa-user avatar"></i> &nbsp;Hello, <%= req.session.user.firstName %>&nbsp;
                 <i class="fa fa-caret-down"></i>
               </a>
-              <% if(req.session.user.email == 'admin@gmail.com') {%>
+              <% if(req.session.user.role == 1) {%>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                   <li>
                     <a href="/dashboard/index">

@@ -23,26 +23,24 @@ module.exports.policies = {
 
 
 
+  /**
+   * POLICIES ADMINSTATOR
+   */
 
-  'IndexController': {
+  'dashboard/IndexController': {
+    '*':'isAdministrator'
+  },
+  'dashboard/ProductController': {
     '*': 'isAdministrator'
   },
-  'ProductController': {
+  'dashboard/CategoryController': {
     '*': 'isAdministrator'
   },
-  'CategoryController': {
+  'dashboard/PartnerController': {
     '*': 'isAdministrator'
   },
-  'PartnerController': {
+  'dashboard/SlideController': {
     '*': 'isAdministrator'
-  },
-  'SlideController': {
-    '*': 'isAdministrator'
-  },
-
-
-  IndexController: {
-    '*': ['isAdministrator']
-  },
+  }
 
 };
