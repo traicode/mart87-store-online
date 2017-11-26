@@ -147,11 +147,13 @@ app.controller('PagerCtr', function($scope, ApiService, Storage) {
     };
     
     $scope.parseProImage = function (image) {
-        return "http://localhost:1337/images/product/"+ image;
+        //return "http://localhost:1337/images/product/"+ image;
+      return "http://all-nodes-ravuthz2.c9users.io:8080/images/product/"+image;    
     };
 
     $scope.parseCatImage = function (image) {
-        return "http://localhost:1337/images/category/"+ image;
+       // return "http://localhost:1337/images/category/"+image;
+    return "http://all-nodes-ravuthz2.c9users.io:8080/images/category/"+image;
     };
 });
 

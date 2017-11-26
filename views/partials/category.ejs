@@ -5,7 +5,7 @@
                 <li ng-repeat="category in categories">
                     <a href="/category/{{ category.id }}" class="list-group-item">
                         <span class="icon-sidebar">
-                            <img src="{{ parseCatImage(category.image)}}" alt="">
+                            <img src="{{parseCatImage(category.image)}}" alt="">
                         </span>{{ category.name }}</a>
                     <ul class="child-menu">
                         <li>
