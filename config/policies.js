@@ -22,6 +22,12 @@ module.exports.policies = {
   '*' : ['getCategories','getPartners','getSlides'],
 
 
+  /**
+   * POLICIES USER
+   */
+  'AccountController':{
+    '*':'isAuthenticated'
+  },
 
   /**
    * POLICIES ADMINSTATOR

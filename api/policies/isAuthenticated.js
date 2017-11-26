@@ -7,10 +7,17 @@
  * @docs        :: http://sailsjs.org/#!documentation/policies
  *
  */
+var redirectLogin = "/login";
+var redirectIndex = "/";
 module.exports = function(req, res, next) {
-   if (req.isAuthenticated()) {
-        return next();
-    } else{
-        return res.redirect('/login');
-    }
+
+    if (req.session.user == null) {
+        return res.redirect(redirectLogin);
+     } else if(req.session.user.role == 2){
+         return next();
+     }else if(req.session.user.role == 1){
+        return res.redirect(redirectIndex);
+     }else{
+        return res.redirect(redirectIndex);
+     }
 };
