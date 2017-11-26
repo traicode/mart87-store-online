@@ -7,13 +7,6 @@
  * @docs        :: http://sailsjs.org/#!documentation/policies
  *
  */
-module.exports = function(req, res, next) {
-    
-    var user  = req.session.user;
-    
-    if(user &&  user.role == 1){
-        return next();
-    }else{
-        return res.redirect('/login');
-    }
+module.exports = function isAdministrator (req, res, next) {
+    res.redirect('/');
 };

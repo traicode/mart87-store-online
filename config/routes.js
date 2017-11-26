@@ -1,4 +1,5 @@
 var PREFIX_ADMIN = '/dashboard';
+var PREFIX_ACCOUNT = '/account';
 module.exports.routes = {
 
  
@@ -47,51 +48,21 @@ module.exports.routes = {
   /**
    * ACCOUNT
    */
-  '/account': {
-    view: 'pages/account/account'
-  },
-  '/address': {
-    view: 'pages/account/address'
-  },
-  '/change-password': {
-    view: 'pages/account/change-password'
-  },
-  '/download': {
-    view: 'pages/account/download'
-  },
-  '/edit-account': {
-    view: 'pages/account/edit-account'
-  },
-  '/edit-address': {
-    view: 'pages/account/edit-address'
-  },
-  '/forgotten': {
-    view: 'pages/account/forgotten'
-  },
-  '/new-address': {
-    view: 'pages/account/new-address'
-  },
-  '/newsletter': {
-    view: 'pages/account/newsletter'
-  },
-  '/order': {
-    view: 'pages/account/order'
-  },
-  '/recurring': {
-    view: 'pages/account/recurring'
-  },
-  '/return': {
-    view: 'pages/account/return'
-  },
-  '/reward': {
-    view: 'pages/account/reward'
-  },
-  '/transaction': {
-    view: 'pages/account/transaction'
-  },
-  '/wishlist': {
-    view: 'pages/account/wishlist'
-  },
+  ['GET ' + PREFIX_ACCOUNT ]: 'AccountController.account',
+  ['GET ' + PREFIX_ACCOUNT + '/address' ]: 'AccountController.address',
+  ['GET ' + PREFIX_ACCOUNT + '/change-password' ]: 'AccountController.changePassword',
+  ['GET ' + PREFIX_ACCOUNT + '/download' ]: 'AccountController.download',
+  ['GET ' + PREFIX_ACCOUNT + '/edit-account' ]: 'AccountController.editAccount',
+  ['GET ' + PREFIX_ACCOUNT + '/edit-address' ]: 'AccountController.editAddress',
+  ['GET ' + PREFIX_ACCOUNT + '/forgotten' ]: 'AccountController.forgotton',
+  ['GET ' + PREFIX_ACCOUNT + '/new-address' ]: 'AccountController.newAddress',
+  ['GET ' + PREFIX_ACCOUNT + '/newsletter' ]: 'AccountController.newSletter',
+  ['GET ' + PREFIX_ACCOUNT + '/order' ]: 'AccountController.order',
+  ['GET ' + PREFIX_ACCOUNT + '/recurring' ]: 'AccountController.recurring',
+  ['GET ' + PREFIX_ACCOUNT + '/return' ]: 'AccountController.return',
+  ['GET ' + PREFIX_ACCOUNT + '/reward' ]: 'AccountController.reward',
+  ['GET ' + PREFIX_ACCOUNT + '/transaction' ]: 'AccountController.transaction',
+  ['GET ' + PREFIX_ACCOUNT + '/wishlist' ]: 'AccountController.wishlist',
    /**
    * AUTH USER
    */
@@ -104,7 +75,7 @@ module.exports.routes = {
   /**
    * DASHBOARD ADMIN
    */
-  ['GET ' + PREFIX_ADMIN + '/index']: 'dashboard/AdminController.index',
+  ['GET ' + PREFIX_ADMIN + '/index']: 'dashboard/IndexController.index',
   //CATEGORY
   ['GET ' + PREFIX_ADMIN + '/category']: 'dashboard/CategoryController.index',
   ['GET ' + PREFIX_ADMIN + '/category/new']: 'dashboard/CategoryController.new',

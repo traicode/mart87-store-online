@@ -53,13 +53,14 @@ module.exports = {
 
     create:function(req, res){
         var uploadFile = req.file('fileUpload');
+        var lastPart = "";
         uploadFile.upload({ dirname: path }, function onUploadComplete(err, files) {
             if (err) return res.serverError(err);
             //	IF ERROR Return and send 500 error
-            
-            var imageFile  = files[0].fd;
-            var lastPart = imageFile.split("/").pop();
-            
+            if(files.length >0){
+                var imageFile  = files[0].fd;
+                var lastPart = imageFile.split("/").pop();
+            }
             var name = req.body.name;
             var description = req.body.description;
             var cateParent = null;

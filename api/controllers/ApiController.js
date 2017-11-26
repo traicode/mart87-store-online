@@ -40,7 +40,7 @@ module.exports = {
     getCategories: function (req, res) {
         var perPage = req.query.limit;
         var currentPage = req.query.page;
-        var conditions = {};
+        var conditions = {parent:null};
         pager.paginate(Category, conditions, currentPage, perPage, [{name: 'children'},{name: 'user'}], 'createdAt DESC', function(err, records){
             if(err){
                 console.log(err);

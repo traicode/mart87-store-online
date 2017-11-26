@@ -11,23 +11,8 @@
                         <li>
                             <a href="/category/{{ category.id }}"><h4>{{ category.name }}</h4></a>
                         </li>
-                        <li>
-                            <a href="#">item</a>
-                        </li>
-                        <li>
-                            <a href="#">item</a>
-                        </li>
-                        <li>
-                            <a href="#">item</a>
-                        </li>
-                        <li>
-                            <a href="#">item</a>
-                        </li>
-                        <li>
-                            <a href="#">item</a>
-                        </li>
-                        <li>
-                            <a href="#">item</a>
+                        <li ng-repeat="child in category.children">
+                            <a href="/category/{{ child.id }}">{{ child.name }}</a>
                         </li>
                     </ul>
                 </li>

@@ -19,7 +19,24 @@
 
 module.exports.policies = {
   ' * ' : [ 'sessionAuth'],
-  'CategoryController': {
-    '*': 'isAuthenticated'
+  'IndexController': {
+    '*': 'isAdministrator'
   },
+  'ProductController': {
+    '*': 'isAdministrator'
+  },
+  'CategoryController': {
+    '*': 'isAdministrator'
+  },
+  'PartnerController': {
+    '*': 'isAdministrator'
+  },
+  'SlideController': {
+    '*': 'isAdministrator'
+  },
+
+
+  IndexController: {
+    '*': ['isAdministrator']
+  }
 };

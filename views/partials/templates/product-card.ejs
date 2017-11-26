@@ -1,6 +1,5 @@
 <div class="thumbnail">
     <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="onImageClick(product)">
-       <!--<img src="<%=sails.getBaseUrl()%>/images/product/{{ product.images[0] }}" />-->
         <img src="{{ parseProImage(product.images[0]) }}" />
     </a>
     <div class="caption">
