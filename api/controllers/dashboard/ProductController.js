@@ -81,6 +81,7 @@ module.exports = {
                         if (err) {
                             res.send(500, { error: 'Database Error' });
                         }
+                        req.addFlash('success', 'insert success');
                         res.redirect(redirect);
                         return;
                     });
