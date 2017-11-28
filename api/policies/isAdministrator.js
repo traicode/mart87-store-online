@@ -13,8 +13,6 @@
 module.exports = function(req, res, next) {
     if (req.session.user == null) {
         return res.redirect(redirectIndex);
-     } else if(req.session.user.role == 2){
-         return res.redirect(redirectLogin);
      }else if(req.session.user.role == 1){
         return next();
      }else{

@@ -10,15 +10,7 @@ var redirectIndex = "/";
 module.exports = {
 
     account:function(req, res){
-        if(req.session.user == null){
-            res.redirect(redirectLogin);
-            return;
-        }else if( req.session.user.role == 1 ){
-            res.redirect(redirectIndex);
-            return;
-        }else{
-            res.view("pages/account/account");
-        }
+        res.view("pages/account/account");
     },
     address:function(req,res){
         res.view("pages/account/address");

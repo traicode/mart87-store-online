@@ -15,8 +15,6 @@ module.exports = function(req, res, next) {
         return res.redirect(redirectLogin);
      } else if(req.session.user.role == 2){
          return next();
-     }else if(req.session.user.role == 1){
-        return res.redirect(redirectIndex);
      }else{
         return res.redirect(redirectIndex);
      }
