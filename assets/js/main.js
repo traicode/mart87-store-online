@@ -278,27 +278,41 @@ app.controller('CheckoutCtr', function($scope, $controller, Storage,$http) {
     $scope.grandTotal = 0;
     $scope.deliveryFee = 0;
   
-
-   
     $scope.init = function() {
         $scope.cartItems  = Storage.getProduct();
         $scope.subTotal = Storage.totalPrice();
         $scope.grandTotal = ($scope.subTotal + $scope.deliveryFee); 
+
+        $scope.itemOrder($scope.cartItems);
+    };
+
+    $scope.itemOrder = function(items) {
+        $scope.data = [];
+        $scope.proItemOrder = {
+            proId: 0,
+            proQty: 0
+        };
+        angular.forEach(items, function(item, key) {
+            $scope.proItemOrder.proId = key;
+            $scope.proItemOrder.proQty = item.qty;
+            $scope.data.push($scope.proItemOrder);
+        });
+        console.log("DATA ",  $scope.data);
     };
 
     $scope.onSubmitOrder = function(){
+
         var data = {
-            cartItems :  $scope.cartItems,
+            cartItems : $scope.data,
             subTotal : $scope.subTotal,
             grandTotal :  $scope.grandTotal,
             deliveryFee :  $scope.deliveryFee
         };
 
-        console.log("Data : ",  data);
+
 
         $http.post("/checkout/submitOrder",{json:data}).then(function(res){
             console.log("res :  ",  res);  
-
 
         });
     };
