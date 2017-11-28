@@ -25,6 +25,6 @@ module.exports = {
    * Set the port in the production development to 8080                        *
    ***************************************************************************/
 
-  port: 8080,
+  port: 8181,
 
 };
