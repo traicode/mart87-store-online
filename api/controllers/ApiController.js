@@ -9,7 +9,6 @@ module.exports = {
     params: function (req) {
         var params = _.extend(req.query || {}, req.params || {}, req.body || {});
         console.clear();
-        console.log("Fetch Params: ", params);
         return params;
     },
 
@@ -121,7 +120,6 @@ module.exports = {
             if(err){
                 console.log(err);
             }
-            console.log(records);
             return res.json(records);
         });
     },

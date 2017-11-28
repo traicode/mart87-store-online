@@ -6,23 +6,57 @@
  */
 var redirectLogin = "/login";
 var redirectIndex = "/";
-
+var redirectAccount = "/account";
 module.exports = {
+
+    params: function(req) {
+        var params = _.extend(req.query || {}, req.params || {}, req.body || {});
+        console.clear();
+        console.log("Fetch Params: ", params);
+        return params;
+    },
 
     account:function(req, res){
         res.view("pages/account/account");
     },
+    editAccount:function(req,res){
+        var user = req.session.user;
+        var fields = ['id','email','firstName','lastName','address','phone'];
+        User.find({id:user.id,select: fields}).exec(function (err, user){
+            if (err) {
+              return res.serverError(err);
+            }
+            res.view("pages/account/edit-account",{user});
+            return;
+        });
+    },
+    updateAccount:function(req,res){
+        var user = {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            phone: req.body.phone,
+        }
+        if(req.session.user != null){
+            User.update({id:req.session.user.id},user).exec(function (err, user){
+                if (err) {
+                  return res.serverError(err);
+                }
+                res.redirect(redirectAccount);
+                return;
+            });
+        }else{
+            res.redirect(redirectLogin);
+        }
+    },
+    changePassword:function(req,res){
+        res.view("pages/account/change-password")
+    },
     address:function(req,res){
         res.view("pages/account/address");
     },
-	changePassword:function(req,res){
-        res.view("pages/account/change-password")
-    },
     download:function(req,res){
         res.view("pages/account/download");
-    },
-    editAccount:function(req,res){
-        res.view("pages/account/edit-account");
     },
     editAddress:function(req,res){
         res.view("pages/account/edit-address");
@@ -32,9 +66,6 @@ module.exports = {
     },
     newAddress:function(req,res){
         res.view("pages/account/new-address");
-    },
-    newSletter:function(req,res){
-        res.view("pages/account/newsletter");
     },
     order:function(req,res){
         res.view("pages/account/order");
@@ -53,6 +84,39 @@ module.exports = {
     },
     wishlist:function(req,res){
         res.view("pages/account/wishlist");
+    },
+
+
+    newSletter:function(req,res){
+       var user = req.session.user;
+       var fields = ['id','isSubscribe'];
+       if(req.session.user != null){
+        User.find({id:user.id,select: fields}).exec(function (err, user){
+            if (err) {
+              return res.serverError(err);
+            }
+            res.view("pages/account/newsletter",{user});
+            return;
+        });
+       }else{
+        res.redirect(redirectLogin);
+       } 
+    },
+    updateSubscription:function(req,res){
+        var user = {
+            isSubscribe: req.body.subscription,
+        }
+        if(req.session.user != null){
+            User.update({id:req.session.user.id},user).exec(function (err, user){
+                if (err) {
+                  return res.serverError(err);
+                }
+                res.redirect(redirectAccount);
+                return;
+            });
+        }else{
+            res.redirect(redirectLogin);
+        }
     }
 };
 

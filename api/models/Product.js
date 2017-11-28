@@ -37,9 +37,8 @@ module.exports = {
     user: {
       model: 'User'
     },
-
      // Add a reference to OrderDetail
-    product: {
+    orderDetail: {
       collection: 'OrderDetail',
       via: 'product',
       dominant: true

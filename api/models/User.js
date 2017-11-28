@@ -40,6 +40,9 @@ module.exports = {
         phones:{
             type:'array'
         },
+        isSubscribe:{
+            type:'boolean'
+        },
          // Add a reference to Products
         products: {
             collection: 'Product',
@@ -60,7 +63,6 @@ module.exports = {
           collection: 'Category',
           via: 'user'
         },
-        
         
         toJSON: function () {
             var obj = this.toObject();

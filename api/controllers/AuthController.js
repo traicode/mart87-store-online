@@ -40,7 +40,7 @@ module.exports = {
             }
             req.logIn(user, function(err) {
                 if (err) res.send(err);
-                var fields = ['email','name','firstName','lastName','address','phones','role'];
+                var fields = ['id','email','name','firstName','lastName','address','phones','role'];
                 User.findOne({id:user.id,select: fields}).exec(function(err,data){
                       req.session.user = data;
                       res.redirect(redirectAfterHome);

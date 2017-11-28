@@ -45,20 +45,22 @@ module.exports.routes = {
    * ACCOUNT
    */
   ['GET ' + PREFIX_ACCOUNT ]: 'AccountController.account',
+  ['GET ' + PREFIX_ACCOUNT + '/edit-account' ]: 'AccountController.editAccount',
+  ['POST ' + PREFIX_ACCOUNT + '/update' ]: 'AccountController.updateAccount',
   ['GET ' + PREFIX_ACCOUNT + '/address' ]: 'AccountController.address',
   ['GET ' + PREFIX_ACCOUNT + '/change-password' ]: 'AccountController.changePassword',
   ['GET ' + PREFIX_ACCOUNT + '/download' ]: 'AccountController.download',
-  ['GET ' + PREFIX_ACCOUNT + '/edit-account' ]: 'AccountController.editAccount',
   ['GET ' + PREFIX_ACCOUNT + '/edit-address' ]: 'AccountController.editAddress',
   ['GET ' + PREFIX_ACCOUNT + '/forgotten' ]: 'AccountController.forgotton',
   ['GET ' + PREFIX_ACCOUNT + '/new-address' ]: 'AccountController.newAddress',
-  ['GET ' + PREFIX_ACCOUNT + '/newsletter' ]: 'AccountController.newSletter',
   ['GET ' + PREFIX_ACCOUNT + '/order' ]: 'AccountController.order',
   ['GET ' + PREFIX_ACCOUNT + '/recurring' ]: 'AccountController.recurring',
   ['GET ' + PREFIX_ACCOUNT + '/return' ]: 'AccountController.return',
   ['GET ' + PREFIX_ACCOUNT + '/reward' ]: 'AccountController.reward',
   ['GET ' + PREFIX_ACCOUNT + '/transaction' ]: 'AccountController.transaction',
   ['GET ' + PREFIX_ACCOUNT + '/wishlist' ]: 'AccountController.wishlist',
+  ['GET ' + PREFIX_ACCOUNT + '/newsletter' ]: 'AccountController.newSletter',
+  ['POST ' + PREFIX_ACCOUNT + '/newsletter/update' ]: 'AccountController.updateSubscription',
    /**
    * AUTH USER
    */
