@@ -14,7 +14,7 @@ module.exports = {
         var perPage = req.query.limit || 10;
         var currentPage = req.query.page;
         var conditions = {};
-        pager.paginate(Order, conditions, currentPage, perPage, [], 'createdAt DESC', function(err, records){
+        pager.paginate(Order, conditions, currentPage, perPage, [{name:"user"},{name:"orderdetail"}], 'createdAt DESC', function(err, records){
             if(err){
                 console.log(err);
             }
@@ -48,7 +48,7 @@ module.exports = {
                     if(err){
                         res.send(500, {error: 'Database Error'});
                     }
-                    res.redirect('/dashboard/order');
+                    res.redirect(redirect);
                 });
                 
         }
@@ -60,7 +60,7 @@ module.exports = {
             if(err){
                 res.send(500, {error: 'Database Error'});
             }
-            res.redirect('/dashboard/order');
+            res.redirect(redirect);
         });
         return false;
     },
@@ -82,7 +82,7 @@ module.exports = {
             if(err){
                 res.send(500, {error: 'Database Error'});
             }
-            res.redirect('/dashboard/order');
+            res.redirect(redirect);
         });
 
         return false;

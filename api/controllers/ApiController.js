@@ -140,6 +140,30 @@ module.exports = {
             }
             return res.json({ categories: categories });
         });
-    }
+    },
+
+
+    getOrderDetail: function (req, res) {
+        var perPage = req.query.limit;
+        var currentPage = req.query.page;
+        var conditions = {};
+        pager.paginate(OrderDetail, conditions, currentPage, perPage, [{name:"order"},{name:"product"}], 'createdAt DESC', function(err, records){
+            if(err){
+                 res.send(500, { err: 'Database Error' });
+            }
+            return res.json(records);
+        });
+    },
+    getOrder: function (req, res) {
+        var perPage = req.query.limit;
+        var currentPage = req.query.page;
+        var conditions = {};
+        pager.paginate(Order, conditions, currentPage, perPage, [{name:"user"},{name:"orderdetail"}], 'createdAt DESC', function(err, records){
+            if(err){
+                 res.send(500, { err: 'Database Error' });
+            }
+            return res.json(records);
+        });
+    },
 };
 

@@ -9,42 +9,51 @@ var redirect = "/";
 var redirectAuthUser = "/login";
 module.exports = {
 
-    order: function (req, res) {
-        var products = [];
-
+    submitOrder: function (req, res) {
         if (req.session.user == null) {
             res.redirect(redirectAuthUser);
+            return;
         } else {
-            console.log("All Data : ", req.body);
-            var productOrderItem = req.body.products;
-
-            var qty = req.body.qty;
-            var subTotalPrice = req.body.subTotal;
-            var deliveryPrice = req.body.deliveryPrice;
-            var grandTotalPrice = req.body.grandTotal;
-            var products = req.body.productId;
+            var proOrderItems = req.body.json.cartItems;
+            var subTotalPrice = req.body.json.subTotal;
+            var deliveryPrice = req.body.json.deliveryPrice;
+            var grandTotalPrice = req.body.json.grandTotal;
             var status = 'process';
-
             var order = {
-                qty: qty,
                 subTotalPrice: subTotalPrice,
                 deliveryPrice: deliveryPrice,
                 grandTotalPrice: grandTotalPrice,
                 user: req.session.user,
-                products: products,
+                phone:req.session.user.phone,
                 status:status
-            }
-            Order.create(order).exec(function (err) {
+            };
+            Order.create(order).exec(function (err,ord) {
                 if (err) {
                     res.send(500, { error: 'Database Error' });
                 }
+                for(var i = 0 ; i < proOrderItems.length ; i++){
+                    var productId = proOrderItems[i].proId;
+                    var productQty = proOrderItems[i].qty;
+                    Product.find({id:productId}).exec(function(err,pro){
+                        if (err) {
+                            res.send(500, { error: 'Database Error' });
+                        }
+                        var orderDetail = {
+                            order : ord,
+                            product : pro[0],
+                            qty:productQty
+                        }
+                        OrderDetail.create(orderDetail).exec(function(err){
+                            if(err){
+                                res.send(500, {error: 'Database Error'});
+                            }
+                        });
+                    });   
+                }
                 res.redirect(redirect);
+                return;
             });
         }
     },
-
-    submitOrder : function(req,res){
-        console.log("Req orders ; ",  req.param('json'));
-    }
 };
 

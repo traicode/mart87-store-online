@@ -301,7 +301,6 @@ app.controller('CheckoutCtr', function($scope, $controller, Storage,$http) {
     };
 
     $scope.onSubmitOrder = function(){
-        console.log("DATA ",  Storage.getProduct());
         var pros = [];
         var proItems = Storage.getProduct();
         for (var pro in proItems){
@@ -310,27 +309,17 @@ app.controller('CheckoutCtr', function($scope, $controller, Storage,$http) {
                 console.log("V  :",  proItems[pro]);
                 pros.push({"proId":pro, "qty":proItems[pro].qty});
             }
-           
         }
-        console.log("API :", pros);
+        var data = {
+            cartItems : pros,
+            subTotal : $scope.subTotal,
+            grandTotal :  $scope.grandTotal,
+            deliveryFee :  $scope.deliveryFee
+        };
 
-        // Storage.getProduct().forEach(function(v) {
-        //     console.log("value  :", v);
-        // });
-
-        // var data = {
-        //     cartItems : $scope.data,
-        //     subTotal : $scope.subTotal,
-        //     grandTotal :  $scope.grandTotal,
-        //     deliveryFee :  $scope.deliveryFee
-        // };
-
-
-
-        // $http.post("/checkout/submitOrder",{json:data}).then(function(res){
-        //     console.log("res :  ",  res);  
-
-        // });
+        $http.post("/checkout/submitOrder",{json:data}).then(function(res){
+            console.log("res :  ",  res);  
+        });
     };
     
     $scope.init();

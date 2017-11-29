@@ -116,6 +116,8 @@ module.exports.routes = {
   ['POST ' + PREFIX_ADMIN + '/order']: 'dashboard/OrderController.create',
   ['POST ' + PREFIX_ADMIN + '/order/update/:id']: 'dashboard/OrderController.update',
   ['POST ' + PREFIX_ADMIN + '/order/delete/:id']: 'dashboard/OrderController.delete',
+  //ORDER DETAIL
+  ['GET ' + PREFIX_ADMIN + '/orderdetail/:id']: 'dashboard/OrderDetailController.index',
 
   //API
   'GET /api/slides': 'ApiController.getSlides',
@@ -129,4 +131,8 @@ module.exports.routes = {
   'GET /api/category/name': 'ApiController.getCategoryName',
   'GET /api/products': 'ApiController.getProducts',
   'GET /api/products/top':'ApiController.getTopProducts',
+
+  'GET /api/orderdetail':'ApiController.getOrderDetail',
+  'GET /api/order':'ApiController.getOrder',
+
 };
