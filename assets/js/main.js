@@ -323,4 +323,10 @@ app.controller('CheckoutCtr', function($scope, $controller, Storage,$http) {
     };
     
     $scope.init();
+    
 })
+
+app.controller('SearchCtr', function($scope, $controller, Storage,$http) {
+    angular.extend(this, $controller('PagerCtr', { $scope: $scope }));
+
+});

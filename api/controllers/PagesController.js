@@ -22,6 +22,14 @@ module.exports = {
             partners : req.partners,
             slides : req.slides
         });
+    },
+
+    search :function(req,res){
+        return res.view({
+            categories : req.categories,
+            partners : req.partners,
+            slides : req.slides
+        });
     }
     
 };

@@ -10,6 +10,8 @@ module.exports.routes = {
 
   '/category/:id': 'PagesController.category',
 
+  '/search/:text': 'PagesController.search',
+
   '/checkout': {
     view: 'pages/checkout'
   },

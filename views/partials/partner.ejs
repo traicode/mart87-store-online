@@ -2,8 +2,8 @@
     <!-- our partner for slides -->
     <div class="carousel-inner" role="listbox">
         <% if(partners){ %>
-            <% _.each(partners, function(partner){ %>
-                <div class="item active">
+            <% _.each(partners, function(partner,index){ %>
+                <div class="item <%= index == 0 ? 'active' : "" %> ">
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <a href="#">
                             <img src="/images/partner/<%= partner.image %>">
@@ -11,6 +11,42 @@
                         <br>
                     </div>
                 </div>
+
+                <!-- <div class="item active">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <a href="#">
+                                <img src="assets/images/our_partner/cleanbodia-130x100.png">
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <a href="#">
+                                <img src="assets/images/our_partner/koc-cambodia-130x100.png">
+                                
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <a href="#">
+                                <img src="assets/images/our_partner/Sai_Farm-130x100.png" alt="...">
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <a href="#">
+                                <img src="assets/images/our_partner/cleanbodia-130x100.png">
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <a href="#">
+                                <img src="assets/images/our_partner/koc-cambodia-130x100.png">
+                                
+                            </a>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <a href="#">
+                                <img src="assets/images/our_partner/Sai_Farm-130x100.png" alt="...">
+                                
+                            </a>
+                        </div>
+                    </div> -->
             <% });%>   
         <% } %>
     </div>
