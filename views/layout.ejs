@@ -131,7 +131,7 @@
                       <td class="item-order-quantity">{{ item.qty }}</td>
                       <td class="item-order-total">{{ subTotal = item.qty * item.price }}</td>
                       <td>
-                        <a href="javascript:" id="btn-remove-item-cart" class="remove-item-order">
+                        <a ng-click="removeItemFromCart(item)" id="btn-remove-item-cart" class="remove-item-order">
                           <i class="fa fa-close"></i>
                         </a>
                       </td>

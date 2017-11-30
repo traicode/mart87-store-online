@@ -77,6 +77,10 @@ app.service('Storage', function() {
         return products;
     };
 
+    this.removeItemFromCart = function(item){
+        
+    }
+
     this.totalQty = function() {
         var products = this.getProduct();
         var total = 0;
@@ -166,6 +170,15 @@ app.controller('PagerCtr', function($scope,  $rootScope, ApiService, Storage) {
         return "/images/category/"+image;
     //return "http://all-nodes-ravuthz2.c9users.io:8080/images/category/"+image;
     };
+
+
+
+    $scope.removeItemFromCart = function(item){
+        console.log("Id ", item);
+    
+    
+        $scope.loadData();
+    }
 });
 
 // these controllers can seperate to files app.{ controller name }.js
@@ -268,6 +281,7 @@ app.controller('NavbarCtr', function($scope, $controller, Storage) {
     };
     
     $scope.init();
+
 });
 
 app.controller('CheckoutCtr', function($scope, $controller, Storage,$http) {

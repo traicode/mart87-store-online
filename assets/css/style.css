@@ -125,7 +125,20 @@ h4.page-header,h1.page-header {
 }
 
 
+
 .modal-backdrop.in {
     filter: alpha(opacity=50);
     opacity: -0.5;
+}
+
+
+
+
+
+.thumbnail.cart img {
+    opacity: 0.7;
+}
+
+.thumbnail.cart img:hover{
+    opacity: 1;
 }
