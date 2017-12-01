@@ -89,7 +89,15 @@ app.service('Storage', function() {
         return products;
     };
 
+<<<<<<< HEAD
     this.removeItemFromCart = function(item) {
+=======
+    this.removeItemFromCart = function(item){
+        
+    }
+
+    this.totalQty = function() {
+>>>>>>> 5104e70ae48f7e463964da8dc24cef616cd50b44
         var products = this.getProduct();
         if (products[item.id]) {
             delete products[item.id];
@@ -295,7 +303,7 @@ app.controller('CheckoutCtr', function($scope, $rootScope, Storage, $http) {
     $scope.onSubmitOrder = function() {
         // reload data before submit
         $rootScope.initCartBox();
-        
+
         var data = {
             //cartItems: $rootScope.cartItems, // all cart items
             orderItems: $rootScope.orderItems, // all order items => {"proId": "value", "proQty": "value"}
@@ -304,19 +312,33 @@ app.controller('CheckoutCtr', function($scope, $rootScope, Storage, $http) {
             deliveryFee: $rootScope.deliveryFee
         };
 
-        //TODO: Chivon u need to change back follow this {data}
-        //TODO: Or u can change the order item in $rootScope.initCartBox()
-
-        console.log("onSubmitOrder data: ", data);
-
-        $http.post("/checkout/submitOrder", { json: data }).then(function(res) {
-            console.log("res :  ", res);
-            // reset data after submit
-            $rootScope.resetCartBox();
-        });
     };
+    
+    $scope.onToggleCartBox = function() {
+        $scope.toggleCartBox = !$scope.toggleCartBox;
+        $scope.grandTotal = ($scope.subTotal + $scope.deliveryFee);
+    };
+    
+    $scope.init();
 
-})
+});
+
+// app.controller('CheckoutCtr', function($scope, $controller, Storage,$http) {
+//     angular.extend(this, $controller('PagerCtr', { $scope: $scope }));
+
+//         //TODO: Chivon u need to change back follow this {data}
+//         //TODO: Or u can change the order item in $rootScope.initCartBox()
+
+//         console.log("onSubmitOrder data: ", data);
+
+//         $http.post("/checkout/submitOrder", { json: data }).then(function(res) {
+//             console.log("res :  ", res);
+//             // reset data after submit
+//             $rootScope.resetCartBox();
+//         });
+//     };
+
+// })
 
 app.controller('SearchCtr', function($scope, Storage, $http) {
 

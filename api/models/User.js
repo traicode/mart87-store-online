@@ -38,7 +38,8 @@ module.exports = {
             type:'STRING'
         },
         phones:{
-            type:'array'
+            type:'array',
+            unique: true
         },
         isSubscribe:{
             type:'boolean'
