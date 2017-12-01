@@ -21,12 +21,12 @@
   <!--STYLES END-->
 </head>
 
-<body ng-app="TheApp">
+<body ng-app="TheApp" ng-controller="PagerCtr">
    
   <!-- 	header -->
   <header>
     <!-- Navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top navbar-bg-dark-green" ng-controller="NavbarCtr">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-bg-dark-green">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -99,9 +99,8 @@
             <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">-->
             <a href="#" class="dropdown-toggle" role="button" ng-click="onToggleCartBox()">
               <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-              <span id="basket_qty">{{ totalQty }}</span>
-              item(s) -
-              <span id="basket_price">{{ subTotal | currency : '$' }}</span>
+              <span>{{ totalQty }} item(s) - </span>
+              <span>{{ grandTotal | currency : '$' }}</span>
             </a>
             <a href="" id="loading" class="loading_btn">Loading...</a>
           </li>
@@ -129,9 +128,9 @@
                         <strong id="item_order_name">{{ item.name }}</strong>
                       </td>
                       <td class="item-order-quantity">{{ item.qty }}</td>
-                      <td class="item-order-total">{{ subTotal = item.qty * item.price }}</td>
+                      <td class="item-order-total">{{ (item.qty * item.price) | currency : '$' }}</td>
                       <td>
-                        <a href="javascript:" id="btn-remove-item-cart" class="remove-item-order">
+                        <a href="#" class="remove-item-order" ng-click="removeFromCart(item)">
                           <i class="fa fa-close"></i>
                         </a>
                       </td>
@@ -145,17 +144,15 @@
                 <table class="table">
                   <tr>
                     <td>Sub-Total</td>
-                    <td id="sub-total">{{ subTotal | currency : '$' }}</td>
+                    <td>{{ subTotal | currency : '$' }}</td>
                   </tr>
                   <tr>
                     <td>Delivery Fee</td>
-                    <td id="delivery">{{ deliveryFee | currency : '$' }}</td>
+                    <td>{{ deliveryFee | currency : '$' }}</td>
                   </tr>
                   <tr class="total-item-order">
                     <td>Total</td>
-                    <td id="total-order">
-                      <strong>{{ grandTotal | currency : '$' }}</strong>
-                    </td>
+                    <td><strong>{{ grandTotal | currency : '$' }}</strong></td>
                   </tr>
                 </table>
                 <!--  Checkout -->
