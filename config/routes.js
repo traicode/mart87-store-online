@@ -1,5 +1,12 @@
+
+var API = '/api';
+var PRODUCTS = '/products';
+var NAME = '/names';
+
 var PREFIX_ADMIN = '/dashboard';
 var PREFIX_ACCOUNT = '/account';
+
+
 module.exports.routes = {
 
  
@@ -129,8 +136,10 @@ module.exports.routes = {
   'GET /api/products/new': 'ApiController.getNewProducts',
   'GET /api/products/recommend': 'ApiController.getRecommendProducts',
   'GET /api/products/popular': 'ApiController.getPopularProducts',
-  'GET /api/product/name': 'ApiController.getProductName',
+  
+  ['POST '+ API + PRODUCTS + NAME]: 'ApiController.getProductName',
   'GET /api/category/name': 'ApiController.getCategoryName',
+  
   'GET /api/products': 'ApiController.getProducts',
   'GET /api/products/top':'ApiController.getTopProducts',
 

@@ -6,7 +6,9 @@ app.constant('API_END_POINT', '');
 
 // This also can seperate to a file app.service.js
 app.service('ApiService', function($http, API_END_POINT) {
-
+    var API_KEY = '/api';
+    var PRODUCT_KEY = '/products';
+        
     var jsonToQueryParams = function(json) {
         var params = [];
         angular.forEach(json, function(val, key) {
@@ -31,12 +33,9 @@ app.service('ApiService', function($http, API_END_POINT) {
         return fetchApi(url, jsonParams);
     };
 
-    this.getPartner = function(page, limit) {
-        return fetchApiByPage('/api/partners', page, limit);
-    };
 
-    this.getProduct = function(page, limit) {
-        return fetchApiByPage('/api/products', page, limit);
+    this.getProduct = function(preFixed, page, limit) {
+        return fetchApiByPage(API_KEY + PRODUCT_KEY + preFixed, page, limit);
     };
 
     this.getCategory = function(page, limit) {
@@ -47,6 +46,12 @@ app.service('ApiService', function($http, API_END_POINT) {
         return fetchApiByPage('/api/products/category/' + cateId, page, limit);
     };
 
+    this.waitLoading = function (isShow) {
+      if(isShow == true){
+          return  API_END_POINT + "/images/icon/loading_spinner.gif";
+      }
+    };
+    
 });
 
 app.service('Storage', function() {
@@ -211,6 +216,7 @@ app.controller('PagerCtr', function($scope, $rootScope, API_END_POINT, ApiServic
         angular.forEach($rootScope.cartItems, function(item, key) {
             $rootScope.orderItems.push({ "proId": key, "proQty": item.qty });
         });
+        
     };
 
     $rootScope.resetCartBox = function() {
@@ -226,20 +232,26 @@ app.controller('PagerCtr', function($scope, $rootScope, API_END_POINT, ApiServic
 
 });
 
-// these controllers can seperate to files app.{ controller name }.js
 app.controller('NewProductCtr', function($scope, $controller, ApiService) {
-    // angular.extend(this, $controller('PagerCtr', { $scope: $scope }));
+    var NEW_KEY = '/new';
+
     $scope.stock = 10;
     $scope.title = 'New Product';
-
+    
+    
     $scope.selectedItem = {};
 
     // Override to parent
     $scope.loadData = function(page, limit) {
-        ApiService.getProduct(page, 100).then(function(res) {
+        
+         $scope.waitLoading = ApiService.waitLoading(true);
+        
+        ApiService.getProduct(NEW_KEY, page, 8).then(function(res) {
             if (res.data) {
                 $scope.products = res.data;
                 $scope.resetQty($scope.products);
+                
+                $scope.waitLoading = ApiService.waitLoading(false);
             }
         });
     };
@@ -247,17 +259,48 @@ app.controller('NewProductCtr', function($scope, $controller, ApiService) {
     $scope.loadData();
 });
 
-app.controller('RecommendProductCtr', function($scope) {
+app.controller('RecommendProductCtr', function($scope,$controller, ApiService) {
+    var RECOMMENT_KEY = '/recommend';
     $scope.stock = 10;
     $scope.title = 'Recommend Product';
+    
+    $scope.loadData = function(page, limit) {
+        
+        $scope.waitLoading = ApiService.waitLoading(true);
+        
+         ApiService.getProduct(RECOMMENT_KEY, page, 8).then(function(res) {
+            if (res.data) {
+                $scope.products = res.data;
+                $scope.resetQty($scope.products);
+                
+                 $scope.waitLoading = ApiService.waitLoading(false);
+            }
+        });
+    }
     
     $scope.loadData();
 });
 
-app.controller('PopularProductCtr', function($scope) {
+app.controller('PopularProductCtr', function($scope,$controller, ApiService) {
+    var POPULAR = '/popular'; 
     $scope.stock = 100;
     $scope.title = 'Popular  Product';
     
+    $scope.loadData = function(page, limit) {
+        
+        $scope.waitLoading = ApiService.waitLoading(true);
+         
+        ApiService.getProduct(POPULAR, page, 2).then(function(res) {
+            if (res.data) {
+                $scope.products = res.data;
+                $scope.resetQty($scope.products);
+            
+                $scope.waitLoading = ApiService.waitLoading(false);
+            }
+        });
+        
+    }
+        
     $scope.loadData();
 });
 
@@ -318,23 +361,42 @@ app.controller('CheckoutCtr', function($scope, $rootScope, Storage, $http) {
 
 });
 
-// app.controller('CheckoutCtr', function($scope, $controller, Storage,$http) {
-//     angular.extend(this, $controller('PagerCtr', { $scope: $scope }));
-
-//         //TODO: Chivon u need to change back follow this {data}
-//         //TODO: Or u can change the order item in $rootScope.initCartBox()
-
-//         console.log("onSubmitOrder data: ", data);
-
-//         $http.post("/checkout/submitOrder", { json: data }).then(function(res) {
-//             console.log("res :  ", res);
-//             // reset data after submit
-//             $rootScope.resetCartBox();
-//         });
-//     };
-
-// })
-
 app.controller('SearchCtr', function($scope, Storage, $http) {
+    
+    $scope.text = "";
+    
+    $scope.search = function () {
+            console.log("Search ",  $scope.text);
+    }
+    
+    
+    
+    var options = {
+      url: function(phrase) {
+        return "http://all-nodes-ravuthz2.c9users.io:8080/api/products/names";
+      },
+    
+      getValue: function(element) {
+        return element.name;
+      },
+    
+      ajaxSettings: {
+        dataType: "json",
+        method: "POST",
+        data: {
+          dataType: "json"
+        }
+      },
+    
+      preparePostData: function(data) {
+        data.phrase = $("#example-ajax-post").val();
+        return data;
+      },
+    
+      requestDelay: 400
+    };
+    
+    $("#example-ajax-post").easyAutocomplete(options);
 
+    
 });
