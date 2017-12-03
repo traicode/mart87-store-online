@@ -193,11 +193,11 @@ app.controller('PagerCtr', function($scope, $rootScope, API_END_POINT, ApiServic
     };
 
     $scope.parseProImage = function(image) {
-        return API_END_POINT + "/images/product/"+image;
+        return API_END_POINT+"/images/product/"+image;
     };
 
     $scope.parseCatImage = function(image) {
-        return API_END_POINT + "/images/category/"+image;
+        return API_END_POINT+"/images/category/"+image;
     };
 
     $scope.onToggleCartBox = function() {
