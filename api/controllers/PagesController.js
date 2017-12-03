@@ -25,6 +25,10 @@ module.exports = {
     },
 
     search :function(req,res){
+        
+        
+        var  text =  req.body.text;
+        console.log("Search : ",  text);
         return res.view({
             categories : req.categories,
             partners : req.partners,

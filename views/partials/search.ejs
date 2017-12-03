@@ -1,12 +1,13 @@
-<section id="search">
+
+<section id="search" ng-controller="SearchCtr">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <form>
                 <div class="col-md-6 col-md-offset-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for Vegetable, meats & Grocery...">
+                    <div class="input-group"> 
+                        <input type="text" class="form-control" ng-model="text" id="example-ajax-post" placeholder="Search for Vegetable, meats & Grocery...">
                         <span class="input-group-btn">
-                            <button class="btn btn-default bg-ligh-green" type="button">
+                            <button class="btn btn-default bg-ligh-green" type="button" ng-click="search()">
                                 <i class="fa fa-search"></i>
                             </button>
                         </span>

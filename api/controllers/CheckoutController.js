@@ -14,7 +14,7 @@ module.exports = {
             res.redirect(redirectAuthUser);
             return;
         } else {
-            var proOrderItems = req.body.json.cartItems;
+            var proOrderItems = req.body.json.orderItems;
             var subTotalPrice = req.body.json.subTotal;
             var deliveryPrice = req.body.json.deliveryPrice;
             var grandTotalPrice = req.body.json.grandTotal;
@@ -33,7 +33,7 @@ module.exports = {
                 }
                 for(var i = 0 ; i < proOrderItems.length ; i++){
                     var productId = proOrderItems[i].proId;
-                    var productQty = proOrderItems[i].qty;
+                    var productQty = proOrderItems[i].proQty;
                     Product.find({id:productId}).exec(function(err,pro){
                         if (err) {
                             res.send(500, { error: 'Database Error' });
