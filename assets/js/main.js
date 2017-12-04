@@ -48,7 +48,7 @@ app.service('ApiService', function($http, API_END_POINT) {
 
     this.waitLoading = function (isShow) {
       if(isShow == true){
-          return  API_END_POINT + "/images/icon/loading_spinner.gif";
+          return  API_END_POINT+"/images/icon/loading_spinner.gif";
       }
     };
     
@@ -193,11 +193,11 @@ app.controller('PagerCtr', function($scope, $rootScope, API_END_POINT, ApiServic
     };
 
     $scope.parseProImage = function(image) {
-        return API_END_POINT+"/images/product/"+image;
+        return '/images/product/'+image;
     };
 
     $scope.parseCatImage = function(image) {
-        return API_END_POINT+"/images/category/"+image;
+        return '/images/category/'+image;
     };
 
     $scope.onToggleCartBox = function() {

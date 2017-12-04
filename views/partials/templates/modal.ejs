@@ -18,18 +18,27 @@
                                             <!-- product-image-large -->
                                             <div class="product-image-large">
                                                 <div class="easyzoom easyzoom--overlay easyzoom-with-thumbnails">
-                                                    <a href="{{ parseProImage(selectedProduct.images[0]) }}">
-                                                    <img src="{{ parseProImage(selectedProduct.images[0]) }}" width="50%" height="50%" />
-                                                    </a>
+                                                    {{
+                                                        if(selectedProduct != null){
+                                                            if(selectedProduct.images.length > 0){
+                                                                <a href="{{parseProImage(selectedProduct.images[0])}}">
+                                                                    <img src="{{parseProImage(selectedProduct.images[0])}}" width="50%" height="50%">
+                                                                </a>
+                                                            }
+                                                        }
+                                                    }}
                                                 </div>
-
                                             </div>
                                             <!-- /product-image-large -->
                                             <!-- product-image-sub -->
                                             <div class="product-image-sub">
-                                                <a href="{{ parseProImage(selectedProduct.images[1]) }}" data-standard="{{ parseProImage(selectedProduct.images[1]) }}">
-                                                    <img src="{{ parseProImage(selectedProduct.images[1]) }}" width="50%" height="50%" />
-                                                </a>
+                                                {{
+                                                    if(selectedProduct.images.length > 1){
+                                                        <a href="{{parseProImage(selectedProduct.images[1])}}" data-standard="{{ parseProImage(selectedProduct.images[1]) }}">
+                                                            <img src="{{parseProImage(selectedProduct.images[1])}}" width="50%" height="50%" />
+                                                        </a>
+                                                    }
+                                                }}
                                             </div>
                                             <div class="product-image-sub">
                                                 <a href="{{ parseProImage(selectedProduct.images[2])}}" data-standard="{{ parseProImage(selectedProduct.images[2]) }}">

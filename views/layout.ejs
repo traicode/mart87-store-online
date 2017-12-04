@@ -122,7 +122,14 @@
                   <tbody id="list-product-add-cart">
                     <tr>
                       <td class="item-order-images">
-                        <img id="item_order_images" src="{{parseProImage(item.images[0])}}" />
+                        {{
+                          if(item.images.length < 0){
+                            <img id="item_order_images" src="/{{parseProImage(item.images[0])}}" />
+                          }else{
+                            <img id="item_order_images" src="" />
+                          }
+                        }}
+                        
                       </td>
                       <td>
                         <strong id="item_order_name">{{ item.name }}</strong>
